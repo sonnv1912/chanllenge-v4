@@ -6,7 +6,7 @@ export const responseData = ({
    message,
    meta,
    status,
-}: Response<any[]>) => {
+}: Response<any>) => {
    return {
       data,
       success,

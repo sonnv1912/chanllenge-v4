@@ -5,5 +5,9 @@ declare module 'react-motion-modal' {
       EmployeeModal: {
          data?: User;
       };
+      ConfirmModal: {
+         message: string;
+         onConfirm: () => void;
+      };
    }
 }

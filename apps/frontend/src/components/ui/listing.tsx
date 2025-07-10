@@ -15,10 +15,19 @@ type Props = {
    endpoint: string;
    queryParams?: Record<string, string>;
    columns?: Column[];
+   actions?: {
+      edit: boolean;
+      delete: boolean;
+
+      onEdit: (item: any) => void;
+      onDelete: (item: any) => void;
+   };
    createNew?: {
       label: string;
       onCreate: () => void;
    };
+
+   onRowClick?: (value: any) => void;
 };
 
 export const Listing = ({
@@ -27,7 +36,9 @@ export const Listing = ({
    queryParams,
    columns,
    createNew,
+   actions,
    itemKey,
+   onRowClick,
 }: Props) => {
    const query = useGetList<any[]>({ endpoint, queryParams });
 
@@ -69,17 +80,47 @@ export const Listing = ({
                         {t.label}
                      </th>
                   ))}
+
+                  {actions && <th>Action</th>}
                </tr>
             </thead>
 
             <tbody>
-               {query.data?.data.map((item, index) => (
-                  <tr key={item[itemKey]}>
+               {query.data?.data?.map((item, index) => (
+                  <tr
+                     key={item[itemKey]}
+                     className='hover:bg-blue-100 cursor-pointer hover:text-blue-500 transition-all'
+                     onClick={() => onRowClick?.(item)}
+                  >
                      {columns?.map((t) => (
                         <td key={t.code} className='h-14 px-2'>
                            {t.render?.(item, index) || item[t.code]}
                         </td>
                      ))}
+
+                     {actions && (
+                        <td>
+                           <div className='flex items-center gap-2'>
+                              {actions.edit && (
+                                 <Button
+                                    schema={'violet'}
+                                    onClick={() => actions.onEdit?.(item)}
+                                 >
+                                    Edit
+                                 </Button>
+                              )}
+
+                              {actions.edit && (
+                                 <Button
+                                    schema={'danger'}
+                                    onClick={() => actions.onDelete?.(item)}
+                                 >
+                                    Delete
+                                 </Button>
+                              )}
+                           </div>
+                        </td>
+                     )}
                   </tr>
                ))}
             </tbody>

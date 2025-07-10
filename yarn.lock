@@ -2862,10 +2862,10 @@ react-hot-toast@^2.5.2:
     csstype "^3.1.3"
     goober "^2.1.16"
 
-react-motion-modal@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-motion-modal/-/react-motion-modal-1.0.4.tgz#e040aae2ab3898d5a1df0eff687d2290dcce41e8"
-  integrity sha512-gK607JSfnGofVTabT2SGNJ/3v10YlIQON8OAexX2LOgB+BWn4c1TrKVMIcS+nILovJaq4/pEidYi6heSeTVjYA==
+react-motion-modal@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-motion-modal/-/react-motion-modal-1.0.7.tgz#cce947d54c9c449c0583d16bfdf2688120ce88cd"
+  integrity sha512-dX8jExagJcyfkvGvnY8ZN9HeGIsOEitGNjpVeu7yiaVDbwha61lCvWfi+PYgiFyJSPa8SF3yP338e+8hVaH0ag==
   dependencies:
     "@tailwindcss/vite" "^4.1.11"
     clsx "^2.1.1"

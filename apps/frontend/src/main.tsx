@@ -8,6 +8,7 @@ import { ModalProvider } from 'react-motion-modal';
 import { EmployeeModal } from './modals/employee-modal';
 
 import './index.css';
+import { ConfirmModal } from './modals/confirm-modal.tsx';
 
 const root = document.getElementById('root');
 
@@ -22,6 +23,7 @@ if (root) {
             <ModalProvider
                modals={{
                   EmployeeModal,
+                  ConfirmModal,
                }}
                initialParams={{
                   closeOnClickOutside: true,

@@ -1,6 +1,6 @@
 import { db } from 'src/utils/firebase';
 import type { User } from '@packages/types/data';
-import type { QueryParams } from 'src/types/request';
+import type { QueryParams } from '@packages/types';
 
 const getByEmail = async (email: string) => {
    const usersRef = db.collection('users');
@@ -17,10 +17,13 @@ const getByEmail = async (email: string) => {
          ref: usersRef.doc(user.id),
          data: user,
          success: true,
+         collection: usersRef,
       };
    }
 
    return {
+      collection: usersRef,
+      data: null,
       success: false,
    };
 };

@@ -2,29 +2,28 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 
 const button = cva(
-   ['border flex items-center gap-2 text-sm justify-center cursor-pointer'],
+   [
+      'border flex items-center gap-2 text-sm justify-center cursor-pointer transition-all duration-300',
+   ],
    {
       variants: {
          schema: {
-            white: ['bg-white', 'text-black', 'border-gray-200'],
+            white: ['bg-white text-black border-gray-200 hover:bg-gray-200'],
             primary: [
-               'bg-blue-500 hover:bg-blue-600',
-               'text-white',
-               'border-blue-500',
+               'bg-blue-500 hover:bg-blue-600 text-white border-blue-500',
             ],
             'primary-highlight': [
-               'bg-blue-100',
-               'text-blue-500',
-               'border-blue-500',
+               'bg-blue-100 text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white',
             ],
-            danger: ['bg-red-500', 'text-white', 'border-red-500'],
+            danger: ['bg-red-500 text-white border-red-500 hover:bg-red-600'],
             'success-highlight': [
-               'bg-green-100',
-               'text-green-500',
-               'border-green-100',
+               'bg-green-100 text-green-500 border-green-100',
             ],
             success: [
                'bg-green-500 text-white border-green-500 hover:bg-green-600',
+            ],
+            violet: [
+               'bg-violet-500 text-white border-violet-500 hover:bg-violet-600',
             ],
          },
          size: {
