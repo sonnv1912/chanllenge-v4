@@ -1,11 +1,15 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./app.tsx";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { MainNavigation } from './navigation/main-navigation.tsx';
 
-import "./index.css";
+import './index.css';
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const root = document.getElementById('root');
+
+if (root) {
+   createRoot(root).render(
+      <StrictMode>
+         <MainNavigation />
+      </StrictMode>,
+   );
+}

@@ -1,5 +1,6 @@
 {
    "tailwindCSS.classAttributes": ["class", "className", "headerClassName"],
+   "tailwindCSS.classFunctions": ["cva", "cx"],
    "editor.defaultFormatter": "biomejs.biome",
    "[json]": {
       "editor.defaultFormatter": "biomejs.biome"
