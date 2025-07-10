@@ -1,0 +1,24 @@
+{
+   "name": "@packages/types",
+   "license": "MIT",
+   "version": "1.0.0",
+   "exports": {
+      "./package.json": "./package.json",
+      ".": {
+         "types": "./dist/index.d.ts",
+         "import": "./src/index.ts"
+      },
+      "./data": {
+         "types": "./dist/data/index.d.ts",
+         "import": "./src/data/index.ts"
+      }
+   },
+   "scripts": {
+      "watch_package": "tsup --watch --dts-only"
+   },
+   "dependencies": {
+      "@packages/configs": "*",
+      "tsup": "8.5.0"
+   },
+   "peerDependencies": {}
+}

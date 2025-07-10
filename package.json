@@ -2,7 +2,7 @@
    "name": "my-turborepo",
    "private": true,
    "scripts": {
-      "dev": "turbo run dev"
+      "dev": "turbo watch dev"
    },
    "devDependencies": {
       "prettier": "^3.6.2",

@@ -6,6 +6,7 @@ import { LoginPage } from '../pages/login/login-page';
 import { MessagePage } from '../pages/message/message-page';
 import { TaskPage } from '../pages/task/task-page';
 import { WelcomePage } from '../pages/welcome/welcome-page';
+import { VerifyOtpPage } from '../pages/login/verify-otp-page';
 
 export const MainNavigation = () => {
    return (
@@ -13,14 +14,15 @@ export const MainNavigation = () => {
          <Routes>
             <Route index={true} element={<WelcomePage />} />
 
-            <Route element={<DashboardLayout />}>
+            <Route path='/dashboard' element={<DashboardLayout />}>
                <Route path='employee' element={<EmployeePage />} />
                <Route path='task' element={<TaskPage />} />
                <Route path='message' element={<MessagePage />} />
             </Route>
 
-            <Route element={<AuthLayout />}>
+            <Route path='/auth' element={<AuthLayout />}>
                <Route path='login' element={<LoginPage />} />
+               <Route path='verify-otp/:email' element={<VerifyOtpPage />} />
             </Route>
          </Routes>
       </BrowserRouter>

@@ -1,23 +1,30 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "sonnv1912",
-  "type": "commonjs",
-  "scripts": {
-    "dev": "tsx watch src/index.ts"
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
-  "dependencies": {
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "typescript": "^5.8.3"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.0.12",
-    "tsx": "^4.20.3"
-  }
+   "name": "backend",
+   "version": "1.0.0",
+   "description": "",
+   "license": "ISC",
+   "author": "sonnv1912",
+   "type": "commonjs",
+   "scripts": {
+      "dev": "tsx watch src/index.ts"
+   },
+   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+   "dependencies": {
+      "@emailjs/nodejs": "^5.0.2",
+      "@packages/configs": "*",
+      "cors": "^2.8.5",
+      "express": "^5.1.0",
+      "firebase-admin": "^13.4.0",
+      "jsonwebtoken": "^9.0.2",
+      "otpauth": "^9.4.0",
+      "typescript": "^5.8.3"
+   },
+   "devDependencies": {
+      "@packages/types": "*",
+      "@types/cors": "^2.8.19",
+      "@types/express": "^5.0.3",
+      "@types/jsonwebtoken": "^9.0.10",
+      "@types/node": "^24.0.12",
+      "tsx": "^4.20.3"
+   }
 }

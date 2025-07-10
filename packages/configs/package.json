@@ -1,0 +1,20 @@
+{
+   "name": "@packages/configs",
+   "license": "MIT",
+   "version": "1.0.0",
+   "exports": {
+      "./package.json": "./package.json",
+      ".": {
+         "types": "./dist/index.d.ts",
+         "import": "./src/index.ts",
+         "require": "./dist/index.js"
+      }
+   },
+   "scripts": {
+      "watch_package": "tsup --watch"
+   },
+   "dependencies": {
+      "tsup": "8.5.0"
+   },
+   "peerDependencies": {}
+}

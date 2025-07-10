@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 
 const button = cva(
-   ['border rounded-md flex items-center justify-center cursor-pointer'],
+   ['border flex items-center gap-2 text-sm justify-center cursor-pointer'],
    {
       variants: {
          schema: {
@@ -14,7 +14,7 @@ const button = cva(
             ],
             'primary-highlight': [
                'bg-blue-100',
-               'text-white',
+               'text-blue-500',
                'border-blue-500',
             ],
             danger: ['bg-red-500', 'text-white', 'border-red-500'],
@@ -23,19 +23,32 @@ const button = cva(
                'text-green-500',
                'border-green-100',
             ],
+            success: [
+               'bg-green-500 text-white border-green-500 hover:bg-green-600',
+            ],
          },
          size: {
-            medium: ['text-base h-12 px-3'],
+            medium: ['h-10 min-w-10 px-2'],
          },
          disabled: {
             false: null,
             true: ['opacity-50', 'cursor-not-allowed'],
+         },
+         outline: {
+            false: 'border-transparent',
+            true: '',
+         },
+         rounded: {
+            false: 'rounded-md',
+            true: 'rounded-full',
          },
       },
       defaultVariants: {
          schema: 'primary',
          size: 'medium',
          disabled: false,
+         outline: true,
+         rounded: false,
       },
    },
 );
@@ -47,23 +60,21 @@ type Props = {
 };
 
 export const Button = ({
-   disabled,
-   children,
-   size,
-   schema,
    className,
    onClick,
+   children,
+   ...variants
 }: Props & VariantProps<typeof button>) => {
    return (
       <div
          onClick={() => {
-            if (disabled) {
+            if (variants.disabled) {
                return;
             }
 
             onClick?.();
          }}
-         className={clsx(className, button({ size, schema, disabled }))}
+         className={clsx(className, button(variants))}
       >
          {children}
       </div>

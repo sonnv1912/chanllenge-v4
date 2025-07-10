@@ -45,7 +45,8 @@
                   "maxAllowedComplexity": 100
                }
             },
-            "useSimplifiedLogicExpression": "off"
+            "useSimplifiedLogicExpression": "off",
+            "noForEach": "off"
          },
          "performance": {
             "noReExportAll": "off",
