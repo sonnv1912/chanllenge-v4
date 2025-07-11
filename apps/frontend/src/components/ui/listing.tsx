@@ -40,7 +40,7 @@ export const Listing = ({
    itemKey,
    onRowClick,
 }: Props) => {
-   const query = useGetList<any[]>({ endpoint, queryParams });
+   const query = useGetList<any>({ endpoint, queryParams });
 
    return (
       <div>

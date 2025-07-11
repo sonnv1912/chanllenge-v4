@@ -18,12 +18,12 @@ export const Input = ({
    onChange,
 }: Props) => {
    return (
-      <div>
+      <div className='flex-1 w-full'>
          {label && <p className='mb-2 text-sm'>{label}</p>}
 
          <div
             className={clsx(
-               'h-10 rounded-md bg-white border border-gray-200 text-sm focus-within:border-blue-500 overflow-hidden',
+               'h-10 rounded-md bg-white border border-gray-200 text-sm focus-within:border-blue-500 overflow-hidden w-full',
                className,
             )}
          >

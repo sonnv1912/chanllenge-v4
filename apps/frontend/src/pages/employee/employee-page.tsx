@@ -69,7 +69,11 @@ export const EmployeePage = () => {
             columns={[
                {
                   code: 'name',
-                  label: 'Employee Name',
+                  label: 'Name',
+               },
+               {
+                  code: 'role',
+                  label: 'Role',
                },
                {
                   code: 'email',
@@ -81,7 +85,7 @@ export const EmployeePage = () => {
                   render: (value: User) => {
                      return (
                         <Button
-                           className='w-20'
+                           className='w-fit'
                            schema={
                               value.status === 'active'
                                  ? 'success-highlight'

@@ -1,8 +1,8 @@
+import type { Request } from 'express';
 import admin, { type ServiceAccount } from 'firebase-admin';
+import ntpClient from 'ntp-client';
 import serviceAccount from '../configs/service-account.json';
 import { responseData } from './request';
-import type { QueryParams } from '@packages/types';
-import ntpClient from 'ntp-client';
 
 admin.initializeApp({
    credential: admin.credential.cert(serviceAccount as ServiceAccount),
@@ -16,31 +16,31 @@ ntpClient.getNetworkTime('time.google.com', 123, (err, date) => {
    }
 
    const local = new Date();
-   const delta = Math.abs(local.getTime() - date.getTime());
+   const diff = Math.abs(local.getTime() - date.getTime());
 
    console.log(
       '🚀 ~ firebase.ts:17 ~ ntpClient.getNetworkTime ~ local:',
       local,
    );
+
    console.log('🚀 ~ firebase.ts:34 ~ ntpClient.getNetworkTime ~ date:', date);
 
-   console.log('Diff', delta, 'ms');
+   console.log('🚀 ~ firebase.ts:16 ~ ntpClient.getNetworkTime ~ diff:', diff);
 
-   if (delta > 30000) {
+   if (diff > 30000) {
       console.warn('Diff too much, double check');
    }
 });
 
 const db = admin.firestore();
 
-export const getList = async <T>(
-   collection: string,
-   params: QueryParams<T>,
-) => {
+export const getList = async (collection: string, req: Request) => {
    const collectionRef = db.collection(collection);
    const collectionCount = (await collectionRef.count().get()).data();
 
-   const rawSnapshot = collectionRef.limit(params.limit || 10);
+   const rawSnapshot = collectionRef
+      .limit(10)
+      .where('email', '!=', req.auth?.user?.email);
 
    const snapshot = await rawSnapshot.get();
 

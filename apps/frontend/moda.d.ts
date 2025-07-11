@@ -9,5 +9,8 @@ declare module 'react-motion-modal' {
          message: string;
          onConfirm: () => void;
       };
+      SelectUserModal: {
+         onConfirm: (user: User) => void;
+      };
    }
 }

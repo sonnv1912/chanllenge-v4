@@ -36,6 +36,7 @@ export const VerifyOtpPage = () => {
 
          {email && (
             <Button
+               className='justify-center'
                onClick={async () => {
                   await toast.promise(
                      async () =>

@@ -1,3 +1,4 @@
+import './utils/socket';
 import { server } from './utils/app';
 import { mail } from './utils/mail';
 

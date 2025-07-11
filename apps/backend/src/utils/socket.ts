@@ -1,5 +1,7 @@
 import { Server } from 'socket.io';
 import { server } from './app';
+import { socketEvent } from '@packages/configs';
+import { addMessage } from 'src/services/message-service';
 
 const io = new Server(server, {
    transports: ['websocket', 'polling'],
@@ -12,7 +14,9 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-   socket.on('chat message', (message) => {
-      io.emit('chat message', message);
+   socket.on(socketEvent.onMessage, async (message) => {
+      const result = await addMessage(message);
+
+      io.emit(socketEvent.onMessage, result);
    });
 });

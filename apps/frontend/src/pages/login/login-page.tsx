@@ -27,6 +27,7 @@ export const LoginPage = () => {
          />
 
          <Button
+            className='justify-center'
             onClick={async () => {
                await toast.promise(
                   () =>

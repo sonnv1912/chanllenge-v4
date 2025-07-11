@@ -1,20 +1,16 @@
-import type { QueryParams } from '@packages/types';
-import type { User } from '@packages/types/data';
-import { randomUUID } from 'node:crypto';
-import type { Request, Response } from 'express';
-import { users } from 'src/data/users';
-import { responseData } from 'src/utils/request';
-import { mail } from 'src/utils/mail';
-import { TOTP } from 'otpauth';
 import { env, routes } from '@packages/configs';
+import type { User } from '@packages/types/data';
+import type { Request, Response } from 'express';
+import { randomUUID } from 'node:crypto';
+import { TOTP } from 'otpauth';
+import { users } from 'src/data/users';
 import { getList } from 'src/utils/firebase';
+import { mail } from 'src/utils/mail';
+import { responseData } from 'src/utils/request';
 
 export const getUserList = async (req: Request, res: Response) => {
    try {
-      const result = await getList(
-         '/users',
-         req.query as unknown as QueryParams<User>,
-      );
+      const result = await getList('/users', req);
 
       res.json(result);
    } catch (error) {

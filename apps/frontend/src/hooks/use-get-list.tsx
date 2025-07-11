@@ -16,7 +16,7 @@ export const useGetList = <T,>({
       queryKey: [endpoint, queryParams],
       enabled: enable,
       queryFn: async () => {
-         const response = await request<T>(endpoint, {
+         const response = await request<T[]>(endpoint, {
             method: 'get',
             params: queryParams,
          });

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 const button = cva(
    [
-      'border flex items-center gap-2 text-sm justify-center cursor-pointer transition-all duration-300',
+      'border flex items-center gap-2 text-sm cursor-pointer transition-all duration-300 outline-none',
    ],
    {
       variants: {
@@ -27,7 +27,7 @@ const button = cva(
             ],
          },
          size: {
-            medium: ['h-10 min-w-10 px-2'],
+            medium: ['min-h-10 min-w-10 px-2'],
          },
          disabled: {
             false: null,

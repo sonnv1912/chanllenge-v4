@@ -31,7 +31,7 @@ export const Sidebar = () => {
 
          {items.map((item) => {
             return (
-               <Link key={item.code} to={item.href}>
+               <Link key={item.code} to={item.href} className='outline-0'>
                   <Button
                      outline={false}
                      className='justify-start mx-2'
