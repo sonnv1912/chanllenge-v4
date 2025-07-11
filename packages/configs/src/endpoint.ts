@@ -1,6 +1,6 @@
 export const endpoint = {
    login: '/auth/login',
-   verifyOtp: '/auth/verity-sms-otp',
+   verifyOtp: '/auth/verity-otp',
    logout: '/auth/logout',
 
    users: '/users',

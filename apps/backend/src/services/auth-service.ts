@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
    try {
       const user = await users.getByEmail(body.email);
 
-      if (!user.success) {
+      if (!user.success || user.data?.status === 'deleted') {
          res.status(404).send(
             responseData({
                status: 404,
@@ -78,10 +78,26 @@ export const verifyOtp = async (req: Request, res: Response) => {
          return;
       }
 
-      if (user?.data?.otp === body.otp) {
+      const valid = user?.data?.otp === body.otp;
+
+      if (valid) {
+         if (user.data?.status === 'inactive') {
+            await user.ref?.update({
+               otp: '',
+               status: 'active',
+            });
+         } else {
+            await user.ref?.update({
+               otp: '',
+            });
+         }
+
          const token = jwt.sign(
             {
-               user: user.data,
+               user: {
+                  ...user.data,
+                  status: 'active',
+               },
             },
             ENV.SECRET_KEY,
             {
@@ -89,11 +105,7 @@ export const verifyOtp = async (req: Request, res: Response) => {
             },
          );
 
-         await user.ref?.update({
-            otp: '',
-         });
-
-         res.json(
+         return res.json(
             responseData({
                data: token,
                status: 200,
@@ -101,6 +113,14 @@ export const verifyOtp = async (req: Request, res: Response) => {
             }),
          );
       }
+
+      res.json(
+         responseData({
+            status: 401,
+            success: false,
+            message: 'OTP invalid, please check again',
+         }),
+      );
    } catch (error) {
       res.status(500).send(
          responseData({

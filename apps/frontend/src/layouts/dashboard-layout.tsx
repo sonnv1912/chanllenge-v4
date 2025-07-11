@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router';
 import { Header } from '../components/layout/header';
 import { Sidebar } from '../components/layout/sidebar';
-import { routes } from '../configs/routes';
+import { routes } from '@packages/configs';
 
 export const DashboardLayout = () => {
    if (!localStorage.getItem('token')) {

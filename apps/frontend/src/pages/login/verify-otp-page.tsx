@@ -4,8 +4,8 @@ import { Input } from '../../components/ui/input';
 import { useVerifyOtp } from '../../services/auth/auth-hook';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { routes } from '../../configs/routes';
 import { jwtDecode } from 'jwt-decode';
+import { routes } from '@packages/configs';
 
 export const VerifyOtpPage = () => {
    const verifyMutate = useVerifyOtp();
@@ -42,14 +42,16 @@ export const VerifyOtpPage = () => {
                      {
                         loading: 'Checking your OTP',
                         success: (response) => {
-                           navigate(routes.employee);
+                           if (response.data) {
+                              navigate(routes.employee);
 
-                           localStorage.setItem('token', response.data);
+                              localStorage.setItem('token', response.data);
 
-                           localStorage.setItem(
-                              'user',
-                              JSON.stringify(jwtDecode(response.data)),
-                           );
+                              localStorage.setItem(
+                                 'user',
+                                 JSON.stringify(jwtDecode(response.data)),
+                              );
+                           }
 
                            return 'Hi, welcome back';
                         },

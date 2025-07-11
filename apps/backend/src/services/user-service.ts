@@ -4,6 +4,9 @@ import { randomUUID } from 'node:crypto';
 import type { Request, Response } from 'express';
 import { users } from 'src/data/users';
 import { responseData } from 'src/utils/request';
+import { mail } from 'src/utils/mail';
+import { TOTP } from 'otpauth';
+import { env, routes } from '@packages/configs';
 
 export const getUserList = async (req: Request, res: Response) => {
    const result = await users.getList(
@@ -42,7 +45,20 @@ export const updateUser = async (req: Request, res: Response) => {
    }
 
    try {
+      const otp = new TOTP({
+         digits: 6,
+      }).generate();
+
+      body.otp = otp;
+      body.status = 'inactive';
+
       await user.collection.add(body);
+
+      await mail.send({
+         title: 'Verify your email',
+         content: `This is your verify code please don't share to anyone, your OTP: ${otp} and open this link to verify your email: ${env.BASE_URL}${routes.verifyOtp}/${body.email}`,
+         to_email: body.email,
+      });
 
       return res.json(
          responseData({

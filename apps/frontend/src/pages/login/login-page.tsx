@@ -3,8 +3,8 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { useLogin } from '../../services/auth/auth-hook';
 import { useNavigate } from 'react-router';
-import { routes } from '../../configs/routes';
 import { useState } from 'react';
+import { routes } from '@packages/configs';
 
 export const LoginPage = () => {
    const loginMutate = useLogin();

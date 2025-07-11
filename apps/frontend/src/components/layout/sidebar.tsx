@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router';
-import { routes } from '../../configs/routes';
 import { Button } from '../ui/button';
+import { routes } from '@packages/configs';
 
 export const Sidebar = () => {
    const location = useLocation();

@@ -5,6 +5,8 @@ import type { QueryParams } from '@packages/types';
 
 admin.initializeApp({
    credential: admin.credential.cert(serviceAccount as ServiceAccount),
+   databaseURL:
+      'https://challenge4-80285-default-rtdb.asia-southeast1.firebasedatabase.app',
 });
 
 const db = admin.firestore();

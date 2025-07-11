@@ -1,4 +1,4 @@
-import { routes } from '../../configs/routes';
+import { routes } from '@packages/configs';
 
 export const WelcomePage = () => {
    return (

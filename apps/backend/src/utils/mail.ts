@@ -7,7 +7,12 @@ const init = () => {
    });
 };
 
-const send = async (body: object) => {
+const send = async (body: {
+   // [key: string]: string;
+   title: string;
+   content: string;
+   to_email: string;
+}) => {
    await emailjs.send('service_asbjq23', 'template_owy636h', body);
 };
 

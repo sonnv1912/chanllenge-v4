@@ -12,7 +12,7 @@ export const request = async <T>(
    endpoint: string,
    options: Options,
 ): Promise<Response<T>> => {
-   const defaultUrl = `${env.BASE_URL}${endpoint}`;
+   const defaultUrl = `${env.BASE_API_URL}${endpoint}`;
    const token = localStorage.getItem('token');
 
    const url = options.params
