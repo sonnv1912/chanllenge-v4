@@ -7,44 +7,50 @@ import { responseData } from 'src/utils/request';
 import { mail } from 'src/utils/mail';
 import { TOTP } from 'otpauth';
 import { env, routes } from '@packages/configs';
+import { getList } from 'src/utils/firebase';
 
 export const getUserList = async (req: Request, res: Response) => {
-   const result = await users.getList(
-      req.query as unknown as QueryParams<User>,
-   );
+   try {
+      const result = await getList(
+         '/users',
+         req.query as unknown as QueryParams<User>,
+      );
 
-   res.json(
-      responseData({
-         status: 200,
-         success: true,
-         data: result,
-      }),
-   );
-};
-
-export const updateUser = async (req: Request, res: Response) => {
-   const user = await users.getByEmail(req.body.email);
-
-   const body: User = {
-      ...req.body,
-      status: req.body.status || user.data?.status || 'active',
-      otp: '',
-      id: user.data?.status || randomUUID(),
-   };
-
-   if (user.success) {
-      await user.ref?.update(body);
-
-      return res.json(
+      res.json(result);
+   } catch (error) {
+      res.status(500).json(
          responseData({
-            data: body,
-            status: 200,
-            success: true,
+            status: 500,
+            success: false,
+            message: (error as Error).message || 'Error while get use list',
          }),
       );
    }
+};
 
+export const updateUser = async (req: Request, res: Response) => {
    try {
+      const user = await users.getByEmail(req.body.email);
+
+      const body: User = {
+         ...req.body,
+         status: req.body.status || user.data?.status || 'active',
+         otp: '',
+         id: user.data?.status || randomUUID(),
+      };
+
+      if (user.success) {
+         await user.ref?.update(body);
+
+         return res.json(
+            responseData({
+               data: body,
+               status: 200,
+               success: true,
+            }),
+         );
+      }
+
       const otp = new TOTP({
          digits: 6,
       }).generate();

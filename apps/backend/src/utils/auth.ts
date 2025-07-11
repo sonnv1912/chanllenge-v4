@@ -1,7 +1,6 @@
-import jwt from 'jsonwebtoken';
 import type { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 import { ENV } from 'src/configs/env';
-import type { User } from '@packages/types/data';
 import { responseData } from './request';
 
 export const authenticateToken = (
@@ -33,7 +32,8 @@ export const authenticateToken = (
             );
          }
 
-         req.user = decoded as User;
+         req.auth = {};
+         req.auth = decoded as Request['auth'];
 
          return next();
       }

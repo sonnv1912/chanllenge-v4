@@ -1,6 +1,5 @@
-import { db } from 'src/utils/firebase';
 import type { User } from '@packages/types/data';
-import type { QueryParams } from '@packages/types';
+import { db } from 'src/utils/firebase';
 
 const getByEmail = async (email: string) => {
    const usersRef = db.collection('users');
@@ -32,19 +31,6 @@ const getByEmail = async (email: string) => {
    };
 };
 
-const getList = async (params: QueryParams<User>) => {
-   const usersRef = db.collection('users');
-   const snapshot = await usersRef.limit(params.limit || 10).get();
-
-   const users: User[] = snapshot.docs.map((doc) => ({
-      ...(doc.data() as User),
-      id: doc.id,
-   }));
-
-   return users;
-};
-
 export const users = {
    getByEmail,
-   getList,
 };

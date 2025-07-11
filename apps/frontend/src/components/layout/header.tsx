@@ -7,7 +7,7 @@ export const Header = () => {
    const logoutMutate = useLogout();
 
    return (
-      <div className='sticky top-0 left-0 right-0 bg-gray-100 px-5 h-14 flex items-center justify-between border-b border-gray-200'>
+      <div className='sticky top-0 left-0 right-0 bg-white px-5 h-14 flex items-center justify-between border-b border-gray-200'>
          <div />
 
          <div className='flex items-center gap-2'>

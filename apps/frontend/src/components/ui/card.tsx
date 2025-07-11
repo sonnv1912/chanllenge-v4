@@ -1,20 +1,22 @@
 import clsx from 'clsx';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 type Props = {
    children?: ReactNode;
    className?: string;
    title?: string;
+   style?: CSSProperties;
    right?: ReactNode;
 };
 
-export const Card = ({ children, className, title, right }: Props) => {
+export const Card = ({ children, className, title, style, right }: Props) => {
    return (
       <div
          className={clsx(
             className,
             'bg-white p-5 rounded-2xl flex flex-col gap-5',
          )}
+         style={style}
       >
          {(title || right) && (
             <div className='flex items-center justify-between'>
@@ -24,7 +26,7 @@ export const Card = ({ children, className, title, right }: Props) => {
             </div>
          )}
 
-         {children && <div>{children}</div>}
+         {children && <div className='size-full'>{children}</div>}
       </div>
    );
 };

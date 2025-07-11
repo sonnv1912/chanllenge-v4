@@ -1091,6 +1091,11 @@
   dependencies:
     undici-types "~6.21.0"
 
+"@types/ntp-client@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@types/ntp-client/-/ntp-client-0.5.0.tgz#9556332e0696aba8302697d5abf7233c489753e6"
+  integrity sha512-MDKMQwt294nE496gJH7eOZL1jgWchp/QGwI+QvUvEKW5Trj0iGjmmgyKx9u6J4eN6gfGQM7znwUBvp1tvejE5g==
+
 "@types/qs@*":
   version "6.14.0"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.14.0.tgz#d8b60cecf62f2db0fb68e5e006077b9178b85de5"
@@ -2709,6 +2714,11 @@ node-releases@^2.0.19:
   version "2.0.19"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.19.tgz#9e445a52950951ec4d177d843af370b411caf314"
   integrity sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==
+
+ntp-client@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/ntp-client/-/ntp-client-0.5.3.tgz#03c0c8da67e3f4997da083d4682dcce0d9208a35"
+  integrity sha512-/Ja8ljm8V0yb+zZnjEaJlFY3abA9gIpQcnkX8RJ59NzHVcnJJpGoKtU3UcrnAwRfduYAktI+2gJLpn1NepxgnA==
 
 object-assign@^4, object-assign@^4.0.1:
   version "4.1.1"

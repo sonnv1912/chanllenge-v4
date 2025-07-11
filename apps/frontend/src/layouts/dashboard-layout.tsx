@@ -12,7 +12,7 @@ export const DashboardLayout = () => {
       <div className='flex items-center'>
          <Sidebar />
 
-         <div className='flex-1 h-screen overflow-auto bg-gray-50'>
+         <div className='flex-1 h-screen overflow-auto bg-slate-200'>
             <Header />
 
             <Outlet />

@@ -2,11 +2,33 @@ import admin, { type ServiceAccount } from 'firebase-admin';
 import serviceAccount from '../configs/service-account.json';
 import { responseData } from './request';
 import type { QueryParams } from '@packages/types';
+import ntpClient from 'ntp-client';
 
 admin.initializeApp({
    credential: admin.credential.cert(serviceAccount as ServiceAccount),
-   databaseURL:
-      'https://challenge4-80285-default-rtdb.asia-southeast1.firebasedatabase.app',
+});
+
+ntpClient.getNetworkTime('time.google.com', 123, (err, date) => {
+   if (err || !date) {
+      console.log("Can't get server time");
+
+      return;
+   }
+
+   const local = new Date();
+   const delta = Math.abs(local.getTime() - date.getTime());
+
+   console.log(
+      '🚀 ~ firebase.ts:17 ~ ntpClient.getNetworkTime ~ local:',
+      local,
+   );
+   console.log('🚀 ~ firebase.ts:34 ~ ntpClient.getNetworkTime ~ date:', date);
+
+   console.log('Diff', delta, 'ms');
+
+   if (delta > 30000) {
+      console.warn('Diff too much, double check');
+   }
 });
 
 const db = admin.firestore();

@@ -3,4 +3,4 @@ import { mail } from './utils/mail';
 
 mail.init();
 
-server.listen(8888);
+server.listen(4000);

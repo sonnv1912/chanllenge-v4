@@ -135,7 +135,9 @@ export const verifyOtp = async (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
-   req.user = undefined;
+   if (req.auth?.user) {
+      req.auth.user = undefined;
+   }
 
    return res.send(
       responseData({
