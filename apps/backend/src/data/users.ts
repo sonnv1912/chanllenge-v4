@@ -5,7 +5,11 @@ import type { QueryParams } from '@packages/types';
 const getByEmail = async (email: string) => {
    const usersRef = db.collection('users');
 
-   const snapshot = await usersRef.where('email', '==', email).limit(1).get();
+   const snapshot = await usersRef
+      .orderBy('email')
+      .where('email', '==', email)
+      .limit(1)
+      .get();
 
    if (!snapshot.empty) {
       const user = {
@@ -30,7 +34,6 @@ const getByEmail = async (email: string) => {
 
 const getList = async (params: QueryParams<User>) => {
    const usersRef = db.collection('users');
-
    const snapshot = await usersRef.limit(params.limit || 10).get();
 
    const users: User[] = snapshot.docs.map((doc) => ({
