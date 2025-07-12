@@ -50,7 +50,11 @@ export const VerifyOtpPage = () => {
                            if (response.data) {
                               const data = jwtDecode(response.data) as any;
 
-                              navigate(routes.employee);
+                              navigate(
+                                 data.user.role === 'admin'
+                                    ? routes.employee
+                                    : routes.message,
+                              );
 
                               setToken(response.data);
                               setUser(data.user);

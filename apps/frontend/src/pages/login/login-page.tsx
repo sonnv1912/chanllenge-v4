@@ -50,7 +50,7 @@ export const LoginPage = () => {
 
          <p className='pt-8'>
             Don't having account?{' '}
-            <a href='/' className='text-blue-500'>
+            <a href='#' className='text-blue-500'>
                Sign Up
             </a>
          </p>

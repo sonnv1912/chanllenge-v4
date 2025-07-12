@@ -14,7 +14,11 @@ export const login = async (req: Request, res: Response) => {
    try {
       const user = await users.getByEmail(body.email);
 
-      if (!user.success || user.data?.status === 'deleted') {
+      if (
+         !user.success ||
+         user.data?.status === 'deleted' ||
+         user.data?.status === 'inactive'
+      ) {
          res.status(404).send(
             responseData({
                status: 404,
