@@ -39,6 +39,8 @@ yarn dev
 
 ## Snapshot
 
+- Fully responsive on each page
+
 | Page         | Screenshot |
 |--------------|------------|
 | Welcome      | ![](https://github.com/user-attachments/assets/7bb7c5ff-444c-4960-b35a-e30878a825cf) |
