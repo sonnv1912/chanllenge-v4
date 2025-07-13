@@ -213,13 +213,19 @@ export const MessagePage = () => {
 
                      <Button
                         onClick={() => {
-                           socket.emit(socketEvent.onMessage, {
-                              chat_id: selected?.id,
-                              sender_id: user?.id,
-                              content,
-                           });
+                           if (content) {
+                              socket.emit(socketEvent.onMessage, {
+                                 chat_id: selected?.id,
+                                 sender_id: user?.id,
+                                 content,
+                              });
 
-                           setContent('');
+                              setContent('');
+
+                              return;
+                           }
+
+                           toast.error('Please type your message then submit');
                         }}
                      >
                         <Send />
