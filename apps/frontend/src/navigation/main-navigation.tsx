@@ -7,6 +7,7 @@ import { MessagePage } from '../pages/message/message-page';
 import { TaskPage } from '../pages/task/task-page';
 import { WelcomePage } from '../pages/welcome/welcome-page';
 import { VerifyOtpPage } from '../pages/login/verify-otp-page';
+import { ProfilePage } from '../pages/profile/profile-page';
 
 export const MainNavigation = () => {
    return (
@@ -18,6 +19,7 @@ export const MainNavigation = () => {
                <Route path='employee' element={<EmployeePage />} />
                <Route path='task' element={<TaskPage />} />
                <Route path='message' element={<MessagePage />} />
+               <Route path='profile' element={<ProfilePage />} />
             </Route>
 
             <Route path='/auth' element={<AuthLayout />}>

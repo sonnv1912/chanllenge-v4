@@ -5,4 +5,5 @@ export const routes = {
    employee: '/dashboard/employee',
    task: '/dashboard/task',
    message: '/dashboard/message',
+   profile: '/dashboard/profile',
 };

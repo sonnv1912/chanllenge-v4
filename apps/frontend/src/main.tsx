@@ -12,30 +12,33 @@ import { EmployeeModal } from './modals/employee-modal';
 import { ConfirmModal } from './modals/confirm-modal.tsx';
 import { TaskModal } from './modals/task-modal.tsx';
 import { SelectObjectModal } from './modals/select-object-modal.tsx';
+import { NuqsAdapter } from 'nuqs/adapters/react';
 
 const root = document.getElementById('root');
 
 if (root) {
    createRoot(root).render(
       <StrictMode>
-         <QueryClientProvider client={queryClient}>
-            <MainNavigation />
+         <NuqsAdapter>
+            <QueryClientProvider client={queryClient}>
+               <MainNavigation />
 
-            <Toaster />
+               <Toaster />
 
-            <ModalProvider
-               modals={{
-                  EmployeeModal,
-                  ConfirmModal,
-                  TaskModal,
-                  SelectObjectModal,
-               }}
-               initialParams={{
-                  closeOnClickOutside: true,
-                  closeOnPressEsc: true,
-               }}
-            />
-         </QueryClientProvider>
+               <ModalProvider
+                  modals={{
+                     EmployeeModal,
+                     ConfirmModal,
+                     TaskModal,
+                     SelectObjectModal,
+                  }}
+                  initialParams={{
+                     closeOnClickOutside: true,
+                     closeOnPressEsc: true,
+                  }}
+               />
+            </QueryClientProvider>
+         </NuqsAdapter>
       </StrictMode>,
    );
 }

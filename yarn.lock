@@ -2680,6 +2680,11 @@ minizlib@^3.0.1:
   dependencies:
     minipass "^7.1.2"
 
+mitt@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.1.tgz#ea36cf0cc30403601ae074c8f77b7092cdab36d1"
+  integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
+
 mkdirp@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
@@ -2707,7 +2712,7 @@ motion-utils@^12.23.2:
   resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.23.2.tgz#93e13c5abd611bf270fa3da5e962a72f80158d2d"
   integrity sha512-cIEXlBlXAOUyiAtR0S+QPQUM9L3Diz23Bo+zM420NvSd/oPQJwg6U+rT+WRTpp0rizMsBGQOsAwhWIfglUcZfA==
 
-motion@^12.23.0:
+motion@^12.23.0, motion@^12.23.3:
   version "12.23.3"
   resolved "https://registry.yarnpkg.com/motion/-/motion-12.23.3.tgz#e6d4cd1c091afad07a822deadcdf0951e2391aa3"
   integrity sha512-7N0Q4c+Xms+wuq2o27rPONLYNOhQUsLRpMi8CcVxv9FFJhGAqRNjJ1hrBCxHh+Rx6B2W2WPbCOLQc+QJ3rw6Rw==
@@ -2770,6 +2775,13 @@ ntp-client@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/ntp-client/-/ntp-client-0.5.3.tgz#03c0c8da67e3f4997da083d4682dcce0d9208a35"
   integrity sha512-/Ja8ljm8V0yb+zZnjEaJlFY3abA9gIpQcnkX8RJ59NzHVcnJJpGoKtU3UcrnAwRfduYAktI+2gJLpn1NepxgnA==
+
+nuqs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-2.4.3.tgz#4d0713f44822ae64145740d013c074e1d1523b6d"
+  integrity sha512-BgtlYpvRwLYiJuWzxt34q2bXu/AIS66sLU1QePIMr2LWkb+XH0vKXdbLSgn9t6p7QKzwI7f38rX3Wl9llTXQ8Q==
+  dependencies:
+    mitt "^3.0.1"
 
 object-assign@^4, object-assign@^4.0.1:
   version "4.1.1"

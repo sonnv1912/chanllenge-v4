@@ -7,4 +7,5 @@ export const userSchema = z.object({
    email: z.string().min(1, 'Required'),
    address: z.string().min(1, 'Required'),
    role: z.string().min(1, 'Required'),
+   status: z.string().default('inactive'),
 });

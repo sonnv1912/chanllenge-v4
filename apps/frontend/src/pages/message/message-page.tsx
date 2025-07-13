@@ -76,7 +76,7 @@ export const MessagePage = () => {
       <div className='flex items-start gap-5 p-5'>
          <Card
             title='Messages'
-            className='w-80 overflow-auto'
+            className='w-64 overflow-auto'
             right={
                <Button
                   schema={'success'}

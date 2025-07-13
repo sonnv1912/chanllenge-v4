@@ -1,7 +1,6 @@
 import { endpoint } from '@packages/configs';
 import toast from 'react-hot-toast';
 import { useModal } from 'react-motion-modal';
-import { Card } from '../../components/ui/card';
 import { Listing } from '../../components/ui/listing';
 import { queryClient } from '../../configs/query-client';
 import { useMutate } from '../../hooks/use-mutate';
@@ -11,7 +10,7 @@ export const TaskPage = () => {
    const mutate = useMutate(endpoint.tasks);
 
    return (
-      <Card className='m-5'>
+      <div className='m-5'>
          <Listing
             endpoint={endpoint.tasks}
             itemKey='id'
@@ -78,6 +77,6 @@ export const TaskPage = () => {
                },
             ]}
          />
-      </Card>
+      </div>
    );
 };

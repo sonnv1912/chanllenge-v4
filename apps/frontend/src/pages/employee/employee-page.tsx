@@ -1,19 +1,18 @@
 import { endpoint } from '@packages/configs';
-import { Listing } from '../../components/ui/listing';
-import { Button } from '../../components/ui/button';
 import type { User } from '@packages/types/data';
-import { useModal } from 'react-motion-modal';
-import { useMutate } from '../../hooks/use-mutate';
 import toast from 'react-hot-toast';
+import { useModal } from 'react-motion-modal';
+import { Button } from '../../components/ui/button';
+import { Listing } from '../../components/ui/listing';
 import { queryClient } from '../../configs/query-client';
-import { Card } from '../../components/ui/card';
+import { useMutate } from '../../hooks/use-mutate';
 
 export const EmployeePage = () => {
    const openModal = useModal((state) => state.openModal);
    const mutate = useMutate(endpoint.users);
 
    return (
-      <Card className='m-5'>
+      <div className='m-5'>
          <Listing
             endpoint={endpoint.users}
             itemKey='id'
@@ -100,6 +99,6 @@ export const EmployeePage = () => {
                },
             ]}
          />
-      </Card>
+      </div>
    );
 };

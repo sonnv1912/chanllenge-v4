@@ -11,5 +11,5 @@
    "[javascript]": {
       "editor.defaultFormatter": "biomejs.biome"
    },
-   "cSpell.words": ["firestore", "otpauth", "TOTP", "TWILLO"]
+   "cSpell.words": ["firestore", "nuqs", "otpauth", "TOTP", "TWILLO"]
 }
