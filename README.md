@@ -43,7 +43,7 @@ yarn dev
 
 | Page         | Screenshot |
 |--------------|------------|
-| Welcome      | ![](https://github.com/user-attachments/assets/7bb7c5ff-444c-4960-b35a-e30878a825cf) |
+| Welcome      | ![](https://github.com/user-attachments/assets/39dfc357-a229-45f6-a586-0da0d0579f8d) |
 | Sign In      | ![](https://github.com/user-attachments/assets/5e060d72-dc22-421e-b050-eff254d97af1) |
 | Verify OTP   | ![](https://github.com/user-attachments/assets/c25cc653-f42b-4990-ad76-7c7437196bb3) |
 | Employee     | ![](https://github.com/user-attachments/assets/5ef8de02-cc86-4586-bc02-22634cfaacf7) |
