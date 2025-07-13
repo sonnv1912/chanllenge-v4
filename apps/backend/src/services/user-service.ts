@@ -2,7 +2,7 @@ import { env, routes } from '@packages/configs';
 import type { User } from '@packages/types/data';
 import type { Request, Response } from 'express';
 import { TOTP } from 'otpauth';
-import { db, getList } from 'src/utils/firebase';
+import { db, getDetail, getList } from 'src/utils/firebase';
 import { mail } from 'src/utils/mail';
 import { responseData } from 'src/utils/request';
 
@@ -22,6 +22,24 @@ export const getUserList = async (_req: Request, res: Response) => {
    }
 };
 
+// GetEmployee
+export const getUserDetail = async (req: Request, res: Response) => {
+   try {
+      const result = await getDetail('/users', req.query.user_id as string);
+
+      return res.json(result);
+   } catch (error) {
+      res.status(500).json(
+         responseData({
+            status: 500,
+            success: false,
+            message: (error as Error).message || 'Error while get user detail',
+         }),
+      );
+   }
+};
+
+// CreateEmployee: Create, Update, Delete will change your status to deleted
 export const updateUser = async (req: Request, res: Response) => {
    try {
       const body: User = req.body as User;

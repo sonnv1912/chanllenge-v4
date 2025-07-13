@@ -63,4 +63,17 @@ export const getList = async <T = any>(
    });
 };
 
+export const getDetail = async <T>(collection: string, id: string) => {
+   const collectionRef = db.doc(`${collection}/${id}`);
+   const snapshot = await collectionRef.get();
+
+   const result: T = snapshot.data() as T;
+
+   return responseData<T>({
+      data: result,
+      status: 200,
+      success: true,
+   });
+};
+
 export { db };

@@ -6,6 +6,7 @@ import { users } from 'src/data/users';
 import { mail } from 'src/utils/mail';
 import { responseData } from 'src/utils/request';
 
+// CreateNewAccessCode, LoginEmail
 export const login = async (req: Request, res: Response) => {
    const body = {
       email: req.body.email,
@@ -61,6 +62,7 @@ export const login = async (req: Request, res: Response) => {
    }
 };
 
+// ValidateAccessCode
 export const verifyOtp = async (req: Request, res: Response) => {
    const body = {
       email: req.body.email,
