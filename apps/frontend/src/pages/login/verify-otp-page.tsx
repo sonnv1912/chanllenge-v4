@@ -71,10 +71,7 @@ export const VerifyOtpPage = () => {
          )}
 
          <p className='pt-8'>
-            Could not receive?{' '}
-            <a href='/' className='text-blue-500'>
-               Send again
-            </a>
+            Could not receive? <p className='text-blue-500'>Send again</p>
          </p>
       </div>
    );

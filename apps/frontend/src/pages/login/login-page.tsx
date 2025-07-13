@@ -49,10 +49,7 @@ export const LoginPage = () => {
          </Button>
 
          <p className='pt-8'>
-            Don't having account?{' '}
-            <a href='#' className='text-blue-500'>
-               Sign Up
-            </a>
+            Don't having account? <p className='text-blue-500'>Sign Up</p>
          </p>
       </div>
    );
