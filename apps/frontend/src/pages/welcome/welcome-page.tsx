@@ -1,8 +1,11 @@
 import { routes } from '@packages/configs';
+import { Hand, MoveRight } from 'lucide-react';
 import { Button } from '../../components/ui/button';
-import { Hand, LogIn } from 'lucide-react';
+import { useLocalStorage } from '../../hooks/use-localstorage';
 
 export const WelcomePage = () => {
+   const [user] = useLocalStorage('user');
+
    return (
       <div>
          <p className='text-9xl fixed w-screen h-screen flex items-center justify-center font-semibold text-blue-400'>
@@ -17,9 +20,9 @@ export const WelcomePage = () => {
 
             <a href={routes.login}>
                <Button schema='violet'>
-                  <LogIn size={20} />
+                  <p> {user ? 'Go to dashboard' : 'Login to continue'}</p>
 
-                  <p>Login to continue</p>
+                  <MoveRight size={20} />
                </Button>
             </a>
          </div>
