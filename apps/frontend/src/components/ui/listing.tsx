@@ -18,15 +18,15 @@ export type ListingProps = {
    itemKey: string;
    endpoint: string;
    queryParams?: Record<string, string>;
-   columns?: Column[];
+   columns: Column[];
    right?: ReactNode;
    selected?: any[];
    actions?: {
-      edit: boolean;
-      delete: boolean;
+      edit?: boolean;
+      delete?: boolean;
 
-      onEdit: (item: any) => void;
-      onDelete: (item: any) => void;
+      onEdit?: (item: any) => void;
+      onDelete?: (item: any) => void;
    };
    createNew?: {
       label: string;
@@ -58,7 +58,7 @@ export const Listing = ({
       }
 
       if (column.type === 'date') {
-         return format(value, 'dd/MM/yyyy HH:mm');
+         return value ? format(value, 'dd/MM/yyyy HH:mm') : '';
       }
 
       return value;
@@ -141,7 +141,7 @@ export const Listing = ({
                                  </Button>
                               )}
 
-                              {actions.edit && (
+                              {actions.delete && (
                                  <Button
                                     schema={'danger'}
                                     onClick={() => actions.onDelete?.(item)}

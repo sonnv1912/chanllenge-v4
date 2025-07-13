@@ -13,6 +13,7 @@ import { taskSchema } from '../services/user/task-schema';
 import type { User } from '@packages/types/data';
 import { useMutate } from '../hooks/use-mutate';
 import toast from 'react-hot-toast';
+import { queryClient } from '../configs/query-client';
 
 export const TaskModal = ({ data, closeModal }: ModalParams<'TaskModal'>) => {
    const openModal = useModal((state) => state.openModal);
@@ -37,6 +38,12 @@ export const TaskModal = ({ data, closeModal }: ModalParams<'TaskModal'>) => {
             loading: 'On the way to update this task',
             success: () => {
                closeModal();
+               queryClient.invalidateQueries({
+                  queryKey: [endpoint.tasks],
+               });
+               queryClient.invalidateQueries({
+                  queryKey: [endpoint.assignedTask],
+               });
 
                return 'Update successfully';
             },
@@ -144,72 +151,74 @@ export const TaskModal = ({ data, closeModal }: ModalParams<'TaskModal'>) => {
          <Controller
             control={form.control}
             name='users'
-            render={({ field, fieldState }) => (
-               <Card
-                  title='Assign for'
-                  right={
-                     <Button
-                        onClick={() =>
-                           openModal('SelectObjectModal', {
-                              endpoint: endpoint.users,
-                              multiple: true,
-                              itemKey: 'id',
-                              columns: [
-                                 {
-                                    code: 'name',
-                                    label: 'Name',
+            render={({ field, fieldState }) => {
+               return (
+                  <Card
+                     title='Assign for'
+                     right={
+                        <Button
+                           onClick={() =>
+                              openModal('SelectObjectModal', {
+                                 endpoint: endpoint.users,
+                                 multiple: true,
+                                 itemKey: 'id',
+                                 columns: [
+                                    {
+                                       code: 'name',
+                                       label: 'Name',
+                                    },
+                                    {
+                                       code: 'email',
+                                       label: 'Email',
+                                    },
+                                    {
+                                       code: 'role',
+                                       label: 'Role',
+                                    },
+                                 ],
+                                 selected: field.value,
+                                 title: 'Select user to assign',
+                                 body: {
+                                    className: 'size-full',
                                  },
-                                 {
-                                    code: 'email',
-                                    label: 'Email',
+                                 onConfirm: (users: User[]) => {
+                                    form.setValue('users', users);
                                  },
-                                 {
-                                    code: 'role',
-                                    label: 'Role',
-                                 },
-                              ],
-                              selected: field.value,
-                              title: 'Select user to assign',
-                              body: {
-                                 className: 'size-full',
-                              },
-                              onConfirm: (users: User[]) => {
-                                 form.setValue('users', users);
-                              },
-                           })
-                        }
-                     >
-                        Select
-                     </Button>
-                  }
-               >
-                  {field.value.length ? (
-                     <table className='w-full'>
-                        <thead>
-                           <tr className='text-left border-b border-gray-200'>
-                              <th className='px-2 pb-4'>Name</th>
-                              <th className='px-2 pb-4'>Email</th>
-                              <th className='px-2 pb-4'>Role</th>
-                           </tr>
-                        </thead>
-
-                        <tbody>
-                           {field.value.map((t) => (
-                              <tr key={t.email}>
-                                 <td className='h-14 px-2'>{t.name}</td>
-                                 <td className='h-14 px-2'>{t.email}</td>
-                                 <td className='h-14 px-2'>{t.role}</td>
+                              })
+                           }
+                        >
+                           Select
+                        </Button>
+                     }
+                  >
+                     {field.value.length ? (
+                        <table className='w-full'>
+                           <thead>
+                              <tr className='text-left border-b border-gray-200'>
+                                 <th className='px-2 pb-4'>Name</th>
+                                 <th className='px-2 pb-4'>Email</th>
+                                 <th className='px-2 pb-4'>Role</th>
                               </tr>
-                           ))}
-                        </tbody>
-                     </table>
-                  ) : (
-                     <p className='text-center mb-5'>No one assigned</p>
-                  )}
+                           </thead>
 
-                  <ErrorMessage content={fieldState.error?.message} />
-               </Card>
-            )}
+                           <tbody>
+                              {field.value.map((t) => (
+                                 <tr key={t.email}>
+                                    <td className='h-14 px-2'>{t.name}</td>
+                                    <td className='h-14 px-2'>{t.email}</td>
+                                    <td className='h-14 px-2'>{t.role}</td>
+                                 </tr>
+                              ))}
+                           </tbody>
+                        </table>
+                     ) : (
+                        <p className='text-center mb-5'>No one assigned</p>
+                     )}
+
+                     <ErrorMessage content={fieldState.error?.message} />
+                  </Card>
+               );
+            }}
          />
       </div>
    );

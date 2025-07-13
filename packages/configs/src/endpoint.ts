@@ -10,4 +10,5 @@ export const endpoint = {
    chats: '/chats',
 
    tasks: '/tasks',
+   assignedTask: '/assigned-tasks',
 };

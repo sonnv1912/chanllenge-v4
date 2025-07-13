@@ -39,11 +39,11 @@ export const getList = async <T = any>(
    query?: (ref: CollectionReference) => Query,
 ) => {
    const collectionRef = db.collection(collection);
-   const collectionCount = (await collectionRef.count().get()).data();
    const rawSnapshot = query
       ? query(collectionRef).limit(10)
       : collectionRef.limit(10);
    const snapshot = await rawSnapshot.get();
+   const collectionCount = (await rawSnapshot.count().get()).data().count;
 
    const result: T[] = snapshot.docs.map(
       (doc) =>
@@ -58,7 +58,7 @@ export const getList = async <T = any>(
       status: 200,
       success: true,
       meta: {
-         total: collectionCount.count,
+         total: collectionCount,
       },
    });
 };

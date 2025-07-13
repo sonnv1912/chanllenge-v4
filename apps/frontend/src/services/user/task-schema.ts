@@ -11,7 +11,7 @@ export const taskSchema = z.object({
    users: z
       .array(
          z.object({
-            id: z.string(),
+            id: z.string().optional().nullable(),
             name: z.string(),
             email: z.string(),
             address: z.string(),

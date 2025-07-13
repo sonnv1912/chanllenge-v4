@@ -13,6 +13,7 @@ export const getTaskList = async (_: Request, res: Response) => {
             ...t,
             created_at: t.created_at.toDate(),
             due_date: t.due_date.toDate(),
+            completed_at: t.completed_at ? t.completed_at.toDate() : '',
             users: await Promise.all(
                t.users.map(async (user: any) => (await user.get()).data()),
             ),
@@ -76,6 +77,40 @@ export const updateTask = async (req: Request, res: Response) => {
             status: 200,
             success: true,
             message: (error as Error).message || 'Error while update task',
+         }),
+      );
+   }
+};
+
+export const getAssignedTask = async (req: Request, res: Response) => {
+   try {
+      const result = await getList('/tasks', (query) =>
+         query.where(
+            'users',
+            'array-contains',
+            db.doc(`/users/${req.auth?.user?.id}`),
+         ),
+      );
+
+      result.data = await Promise.all(
+         result.data?.map(async (t) => ({
+            ...t,
+            created_at: t.created_at.toDate(),
+            due_date: t.due_date.toDate(),
+            completed_at: t.completed_at ? t.completed_at.toDate() : '',
+            users: await Promise.all(
+               t.users.map(async (user: any) => (await user.get()).data()),
+            ),
+         })) as Promise<User>[],
+      );
+
+      return res.json(result);
+   } catch (error) {
+      res.status(500).json(
+         responseData({
+            status: 500,
+            success: false,
+            message: (error as Error).message || 'Error while get task list',
          }),
       );
    }

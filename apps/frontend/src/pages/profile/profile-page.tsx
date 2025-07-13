@@ -13,9 +13,12 @@ import clsx from 'clsx';
 import { useMutate } from '../../hooks/use-mutate';
 import { endpoint } from '@packages/configs';
 import toast from 'react-hot-toast';
+import { Listing } from '../../components/ui/listing';
+import { useModal } from 'react-motion-modal';
 
 export const ProfilePage = () => {
    const [user, setUser] = useLocalStorage<User>('user');
+   const openModal = useModal((state) => state.openModal);
 
    const form = useForm({
       resolver: zodResolver(userSchema),
@@ -83,74 +86,110 @@ export const ProfilePage = () => {
             </div>
          </Card>
 
-         <Card
-            title='Update profile'
-            className='flex-1 w-full'
-            right={
-               <Button schema={'success'} onClick={onSubmit}>
-                  Save
-               </Button>
-            }
-         >
-            <Grid>
-               <Controller
-                  control={form.control}
-                  name='name'
-                  render={({ field, fieldState }) => (
-                     <Input
-                        value={field.value}
-                        label='Name'
-                        errMsg={fieldState.error?.message}
-                        onChange={field.onChange}
-                     />
-                  )}
-               />
+         <div className='flex-1 w-full'>
+            <Card
+               title='Update profile'
+               className='w-full mb-5'
+               right={
+                  <Button schema={'success'} onClick={onSubmit}>
+                     Save
+                  </Button>
+               }
+            >
+               <Grid>
+                  <Controller
+                     control={form.control}
+                     name='name'
+                     render={({ field, fieldState }) => (
+                        <Input
+                           value={field.value}
+                           label='Name'
+                           errMsg={fieldState.error?.message}
+                           onChange={field.onChange}
+                        />
+                     )}
+                  />
 
-               <Controller
-                  control={form.control}
-                  name='email'
-                  render={({ field, fieldState }) => (
-                     <Input
-                        value={field.value}
-                        label='Email'
-                        errMsg={fieldState.error?.message}
-                        onChange={field.onChange}
-                     />
-                  )}
-               />
+                  <Controller
+                     control={form.control}
+                     name='email'
+                     render={({ field, fieldState }) => (
+                        <Input
+                           value={field.value}
+                           label='Email'
+                           errMsg={fieldState.error?.message}
+                           onChange={field.onChange}
+                        />
+                     )}
+                  />
 
-               <Controller
-                  control={form.control}
-                  name='phone_number'
-                  render={({ field, fieldState }) => (
-                     <Input
-                        value={field.value}
-                        label='Phone number'
-                        errMsg={fieldState.error?.message}
-                        onChange={field.onChange}
-                     />
-                  )}
-               />
+                  <Controller
+                     control={form.control}
+                     name='phone_number'
+                     render={({ field, fieldState }) => (
+                        <Input
+                           value={field.value}
+                           label='Phone number'
+                           errMsg={fieldState.error?.message}
+                           onChange={field.onChange}
+                        />
+                     )}
+                  />
 
-               <Controller
-                  control={form.control}
-                  name='address'
-                  render={({ field, fieldState }) => (
-                     <Input
-                        value={field.value}
-                        label='Address'
-                        errMsg={fieldState.error?.message}
-                        className={clsx(
-                           'col-span-1',
-                           'md:col-span-2',
-                           'lg:col-span-3',
-                        )}
-                        onChange={field.onChange}
-                     />
-                  )}
-               />
-            </Grid>
-         </Card>
+                  <Controller
+                     control={form.control}
+                     name='address'
+                     render={({ field, fieldState }) => (
+                        <Input
+                           value={field.value}
+                           label='Address'
+                           errMsg={fieldState.error?.message}
+                           className={clsx(
+                              'col-span-1',
+                              'md:col-span-2',
+                              'lg:col-span-3',
+                           )}
+                           onChange={field.onChange}
+                        />
+                     )}
+                  />
+               </Grid>
+            </Card>
+
+            <Listing
+               endpoint={endpoint.assignedTask}
+               itemKey='id'
+               title='Task'
+               columns={[
+                  {
+                     code: 'created_at',
+                     label: 'Created at',
+                     type: 'date',
+                  },
+                  {
+                     code: 'due_date',
+                     label: 'Due date',
+                     type: 'date',
+                  },
+                  {
+                     code: 'completed_at',
+                     label: 'Completed at',
+                     type: 'date',
+                  },
+               ]}
+               actions={{
+                  edit: true,
+                  onEdit(item) {
+                     openModal('TaskModal', {
+                        data: item,
+                        body: {
+                           className: 'size-full',
+                        },
+                     });
+                  },
+               }}
+            />
+         </div>
       </div>
    );
 };
