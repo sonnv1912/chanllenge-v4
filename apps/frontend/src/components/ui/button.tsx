@@ -28,6 +28,7 @@ const button = cva(
          },
          size: {
             medium: ['min-h-10 min-w-10 px-2'],
+            custom: [],
          },
          disabled: {
             false: null,

@@ -9,6 +9,7 @@ type Props = {
    value?: string | null;
    className?: string;
    onChange?: (value: string) => void;
+   onEnter?: () => void;
 };
 
 export const Input = ({
@@ -17,6 +18,7 @@ export const Input = ({
    value,
    placeholder,
    className,
+   onEnter,
    onChange,
 }: Props) => {
    return (
@@ -34,6 +36,11 @@ export const Input = ({
                value={value || ''}
                placeholder={placeholder}
                onInput={(e) => onChange?.((e.target as HTMLInputElement).value)}
+               onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                     onEnter?.();
+                  }
+               }}
             />
          </div>
 

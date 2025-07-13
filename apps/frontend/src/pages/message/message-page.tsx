@@ -2,7 +2,7 @@ import { endpoint, socketEvent } from '@packages/configs';
 import { useGetList } from '../../hooks/use-get-list';
 import type { Chat, Message, User } from '@packages/types/data';
 import { Card } from '../../components/ui/card';
-import { Plus, Send, User as UserIcon } from 'lucide-react';
+import { Pen, Plus, Send, User as UserIcon } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 import { Input } from '../../components/form/input';
@@ -35,6 +35,22 @@ export const MessagePage = () => {
    });
 
    const height = 'calc(100vh - 56px - 40px)';
+
+   const onSendMessage = () => {
+      if (content) {
+         socket.emit(socketEvent.onMessage, {
+            chat_id: selected?.id,
+            sender_id: user?.id,
+            content,
+         });
+
+         setContent('');
+
+         return;
+      }
+
+      toast.error('Please type your message then submit');
+   };
 
    useEffect(() => {
       if (chatQuery.data?.data?.length) {
@@ -181,12 +197,6 @@ export const MessagePage = () => {
                                  'justify-end': isMe,
                               })}
                            >
-                              {isMe && (
-                                 <p className='p-2 bg-slate-200 rounded-lg'>
-                                    {message.content}
-                                 </p>
-                              )}
-
                               <Button
                                  schema={'primary-highlight'}
                                  rounded={true}
@@ -194,10 +204,28 @@ export const MessagePage = () => {
                                  <UserIcon />
                               </Button>
 
-                              {!isMe && (
-                                 <p className='p-2 bg-slate-200 rounded-lg'>
-                                    {message.content}
-                                 </p>
+                              <p
+                                 className={clsx(
+                                    'p-2 bg-slate-200 rounded-lg',
+                                    {
+                                       '-order-1': isMe,
+                                    },
+                                 )}
+                              >
+                                 {message.content}
+                              </p>
+
+                              {isMe && (
+                                 <Button
+                                    schema={'white'}
+                                    size={'custom'}
+                                    rounded={true}
+                                    className={clsx(
+                                       'justify-center p-2 mt-1.5 block -order-2',
+                                    )}
+                                 >
+                                    <Pen size={12} />
+                                 </Button>
                               )}
                            </div>
                         );
@@ -209,25 +237,10 @@ export const MessagePage = () => {
                         placeholder='Your message here'
                         value={content}
                         onChange={setContent}
+                        onEnter={onSendMessage}
                      />
 
-                     <Button
-                        onClick={() => {
-                           if (content) {
-                              socket.emit(socketEvent.onMessage, {
-                                 chat_id: selected?.id,
-                                 sender_id: user?.id,
-                                 content,
-                              });
-
-                              setContent('');
-
-                              return;
-                           }
-
-                           toast.error('Please type your message then submit');
-                        }}
-                     >
+                     <Button onClick={onSendMessage}>
                         <Send />
                      </Button>
                   </div>

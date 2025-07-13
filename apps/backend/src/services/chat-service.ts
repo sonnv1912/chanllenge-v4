@@ -7,11 +7,13 @@ import { responseData } from 'src/utils/request';
 
 export const getChatList = async (req: Request, res: Response) => {
    try {
-      const chatRef = collection.chats.where(
-         'users',
-         'array-contains',
-         collection.users.doc(req.auth?.user?.id!),
-      );
+      const chatRef = collection.chats
+         .where(
+            'users',
+            'array-contains',
+            collection.users.doc(req.auth?.user?.id!),
+         )
+         .orderBy('updated_at', 'desc');
 
       const result = await Promise.all(
          (await chatRef.get()).docs.map(async (doc) => {
@@ -95,6 +97,7 @@ export const createChat = async (req: Request, res: Response) => {
 
       await collection.chats.add({
          users: [authUserRef, userRef],
+         created_at: firestore.FieldValue.serverTimestamp(),
          updated_at: firestore.FieldValue.serverTimestamp(),
          chat_key,
       });

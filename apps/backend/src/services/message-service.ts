@@ -7,7 +7,7 @@ import { responseData } from 'src/utils/request';
 export const getMessageList = async (req: Request, res: Response) => {
    try {
       const messageRef = collection.messages
-         .orderBy('date_created', 'asc')
+         .orderBy('created_at', 'asc')
          .where(
             'chat_id',
             '==',
@@ -65,7 +65,7 @@ export const addMessage = async (message: {
          chat_id: chatRef,
          content: message.content,
          sender: senderRef,
-         date_created: firestore.FieldValue.serverTimestamp(),
+         created_at: firestore.FieldValue.serverTimestamp(),
       });
 
       await chatRef.update({
@@ -84,6 +84,29 @@ export const addMessage = async (message: {
             },
             content: message.content,
          },
+      });
+   } catch (error) {
+      return responseData({
+         status: 500,
+         success: false,
+         message: (error as Error).message || 'Error while get chat list',
+      });
+   }
+};
+
+export const updateMessage = async (message: {
+   chat_id: string;
+   content: string;
+}) => {
+   try {
+      await collection.messages.doc(message.chat_id).update({
+         content: message.content,
+         update_at: firestore.FieldValue.serverTimestamp(),
+      });
+
+      return responseData({
+         status: 200,
+         success: true,
       });
    } catch (error) {
       return responseData({
