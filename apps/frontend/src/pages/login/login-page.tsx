@@ -12,7 +12,7 @@ export const LoginPage = () => {
    const [email, setEmail] = useState('');
 
    return (
-      <div className='border-gray-200 border rounded-2xl w-lg max-w-full px-6  py-8 flex flex-col gap-4'>
+      <div className='border-gray-200 border rounded-2xl w-lg max-w-full px-6 m-5 py-8 flex flex-col gap-4'>
          <p className='text-center font-semibold text-3xl'>Sign In</p>
 
          <p className='text-center text-gray-400 mb-5'>
@@ -48,8 +48,8 @@ export const LoginPage = () => {
             Next
          </Button>
 
-         <p className='pt-8'>
-            Don't having account? <p className='text-blue-500'>Sign Up</p>
+         <p className='pt-8 text-sm'>
+            Don't having account? <span className='text-blue-500'>Sign Up</span>
          </p>
       </div>
    );

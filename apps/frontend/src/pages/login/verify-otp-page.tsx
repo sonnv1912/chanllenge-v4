@@ -70,8 +70,8 @@ export const VerifyOtpPage = () => {
             </Button>
          )}
 
-         <p className='pt-8'>
-            Could not receive? <p className='text-blue-500'>Send again</p>
+         <p className='pt-8 text-sm'>
+            Could not receive? <span className='text-blue-500'>Send again</span>
          </p>
       </div>
    );

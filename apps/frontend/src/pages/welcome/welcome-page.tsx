@@ -1,16 +1,28 @@
 import { routes } from '@packages/configs';
+import { Button } from '../../components/ui/button';
+import { Hand, LogIn } from 'lucide-react';
 
 export const WelcomePage = () => {
    return (
-      <div className='bg-black h-screen w-screen flex flex-col gap-5 items-center justify-center text-white'>
-         <p>HI, welcome back</p>
+      <div>
+         <p className='text-9xl fixed w-screen h-screen flex items-center justify-center font-semibold text-blue-400'>
+            Challenge V4
+         </p>
 
-         <a
-            className='bg-green-500 hover:bg-green-600 rounded-md px-4 py-2'
-            href={routes.login}
-         >
-            Login to continue
-         </a>
+         <div className='h-screen w-screen flex flex-col gap-5 items-center justify-center relative z-10 bg-white/10 backdrop-blur-sm'>
+            <div className='flex items-center gap-2'>
+               <Hand />
+               <p className='text-xl'>Welcome back</p>
+            </div>
+
+            <a href={routes.login}>
+               <Button schema='violet'>
+                  <LogIn size={20} />
+
+                  <p>Login to continue</p>
+               </Button>
+            </a>
+         </div>
       </div>
    );
 };

@@ -25,7 +25,10 @@ ntpClient.getNetworkTime('time.google.com', 123, (err, date) => {
 
    console.log('🚀 ~ firebase.ts:34 ~ ntpClient.getNetworkTime ~ date:', date);
 
-   console.log('🚀 ~ firebase.ts:16 ~ ntpClient.getNetworkTime ~ diff:', diff);
+   console.log(
+      '🚀 ~ firebase.ts:16 ~ ntpClient.getNetworkTime ~ diff:',
+      `${diff} ms`,
+   );
 
    if (diff > 30000) {
       console.warn('Diff too much, double check');
