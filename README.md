@@ -40,6 +40,8 @@ yarn install && yarn dev
 ## Snapshot
 
 - Fully responsive on each page
+- Backend run on [localhost:4000](http://localhost:4000)
+- Front run on [localhost:4444](http://localhost:4444)
 
 | Page         | Screenshot |
 |--------------|------------|
