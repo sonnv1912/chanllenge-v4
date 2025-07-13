@@ -1,19 +1,17 @@
-import { db } from 'src/utils/firebase';
-import type { Request, Response } from 'express';
-import { responseData } from 'src/utils/request';
 import type { User } from '@packages/types/data';
-import type { DocumentReference } from 'firebase-admin/firestore';
+import type { Request, Response } from 'express';
 import { firestore } from 'firebase-admin';
+import type { DocumentReference } from 'firebase-admin/firestore';
+import { collection } from 'src/utils/firebase';
+import { responseData } from 'src/utils/request';
 
 export const getChatList = async (req: Request, res: Response) => {
    try {
-      const chatRef = db
-         .collection('/chats')
-         .where(
-            'users',
-            'array-contains',
-            db.doc(`/users/${req.auth?.user?.id}`),
-         );
+      const chatRef = collection.chats.where(
+         'users',
+         'array-contains',
+         collection.users.doc(req.auth?.user?.id!),
+      );
 
       const result = await Promise.all(
          (await chatRef.get()).docs.map(async (doc) => {
@@ -78,13 +76,12 @@ export const createChat = async (req: Request, res: Response) => {
          );
       }
 
-      const chatRef = db.collection('/chats');
-      const authUserRef = db.doc(`/users/${req.auth?.user?.id}`);
-      const userRef = db.doc(`/users/${req.body.user_id}`);
+      const authUserRef = collection.users.doc(req.auth?.user?.id!);
+      const userRef = collection.users.doc(req.body.user_id);
       const chat_key = [req.auth?.user?.id, req.body.user_id].sort().join('_');
 
       const existChat = !(
-         await chatRef.where('chat_key', '==', chat_key).limit(1).get()
+         await collection.chats.where('chat_key', '==', chat_key).limit(1).get()
       ).empty;
 
       if (existChat) {
@@ -96,7 +93,7 @@ export const createChat = async (req: Request, res: Response) => {
          );
       }
 
-      await chatRef.add({
+      await collection.chats.add({
          users: [authUserRef, userRef],
          updated_at: firestore.FieldValue.serverTimestamp(),
          chat_key,

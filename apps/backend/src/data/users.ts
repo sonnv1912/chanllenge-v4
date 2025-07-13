@@ -1,10 +1,8 @@
 import type { User } from '@packages/types/data';
-import { db } from 'src/utils/firebase';
+import { collection } from 'src/utils/firebase';
 
 const getByEmail = async (email: string) => {
-   const usersRef = db.collection('users');
-
-   const snapshot = await usersRef
+   const snapshot = await collection.users
       .orderBy('email')
       .where('email', '==', email)
       .limit(1)
@@ -17,15 +15,15 @@ const getByEmail = async (email: string) => {
       };
 
       return {
-         ref: usersRef.doc(user.id),
+         ref: collection.users.doc(user.id),
          data: user,
          success: true,
-         collection: usersRef,
+         collection: collection.users,
       };
    }
 
    return {
-      collection: usersRef,
+      collection: collection.users,
       data: null,
       success: false,
    };

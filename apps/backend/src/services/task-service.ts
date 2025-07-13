@@ -1,7 +1,7 @@
 import type { User } from '@packages/types/data';
 import type { Request, Response } from 'express';
 import { firestore } from 'firebase-admin';
-import { db, getList } from 'src/utils/firebase';
+import { collection, getList } from 'src/utils/firebase';
 import { responseData } from 'src/utils/request';
 
 export const getTaskList = async (_: Request, res: Response) => {
@@ -38,8 +38,7 @@ export const updateTask = async (req: Request, res: Response) => {
 
       body.created_at = firestore.Timestamp.fromDate(new Date(body.created_at));
       body.due_date = firestore.Timestamp.fromDate(new Date(body.due_date));
-
-      body.users = body.users.map((t: User) => db.doc(`/users/${t.id}`));
+      body.users = body.users.map((t: User) => collection.users.doc(t.id!));
 
       if (body.completed_at) {
          body.completed_at = firestore.Timestamp.fromDate(
@@ -48,7 +47,7 @@ export const updateTask = async (req: Request, res: Response) => {
       }
 
       if (body.id) {
-         const taskRef = db.doc(`/tasks/${body.id}`);
+         const taskRef = collection.tasks.doc(body.id);
 
          await taskRef.update(body);
 
@@ -60,9 +59,7 @@ export const updateTask = async (req: Request, res: Response) => {
          );
       }
 
-      const collectionRef = db.collection('/tasks');
-
-      await collectionRef.add(body);
+      await collection.tasks.add(body);
 
       return res.json(
          responseData({
@@ -88,7 +85,7 @@ export const getAssignedTask = async (req: Request, res: Response) => {
          query.where(
             'users',
             'array-contains',
-            db.doc(`/users/${req.auth?.user?.id}`),
+            collection.users.doc(req.auth?.user?.id!),
          ),
       );
 

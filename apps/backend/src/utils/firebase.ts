@@ -35,7 +35,7 @@ ntpClient.getNetworkTime('time.google.com', 123, (err, date) => {
    }
 });
 
-const db = admin.firestore();
+export const db = admin.firestore();
 
 export const getList = async <T = any>(
    collection: string,
@@ -79,4 +79,9 @@ export const getDetail = async <T>(collection: string, id: string) => {
    });
 };
 
-export { db };
+export const collection = {
+   users: db.collection('/users'),
+   tasks: db.collection('/tasks'),
+   chats: db.collection('/chats'),
+   messages: db.collection('/messages'),
+};

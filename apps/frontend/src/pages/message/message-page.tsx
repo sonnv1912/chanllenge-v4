@@ -172,7 +172,7 @@ export const MessagePage = () => {
                <div className='border-t border-gray-200 flex flex-col h-full gap-5'>
                   <div className='flex-1 flex flex-col justify-end gap-5'>
                      {messageQuery.data?.data?.map((message) => {
-                        const isMe = message.sender.email === user?.email;
+                        const isMe = message.sender.id === user?.id;
 
                         return (
                            <div

@@ -2,7 +2,7 @@ import { env, routes } from '@packages/configs';
 import type { User } from '@packages/types/data';
 import type { Request, Response } from 'express';
 import { TOTP } from 'otpauth';
-import { db, getDetail, getList } from 'src/utils/firebase';
+import { collection, getDetail, getList } from 'src/utils/firebase';
 import { mail } from 'src/utils/mail';
 import { responseData } from 'src/utils/request';
 
@@ -52,7 +52,7 @@ export const updateUser = async (req: Request, res: Response) => {
          body.otp = otp;
          body.status = 'inactive';
 
-         await db.collection('/users').add(body);
+         await collection.users.add(body);
 
          await mail.send({
             title: 'Verify your email',
@@ -69,10 +69,8 @@ export const updateUser = async (req: Request, res: Response) => {
          );
       }
 
-      const userRef = db.doc(`/users/${req.body.id}`);
-      const userData = (
-         await db.doc(`/users/${req.body.id}`).get()
-      ).data() as User;
+      const userRef = collection.users.doc(req.body.id);
+      const userData = (await userRef.get()).data() as User;
 
       if (userData.email === req.body.email.trim()) {
          await userRef?.update(body);
@@ -87,8 +85,7 @@ export const updateUser = async (req: Request, res: Response) => {
       }
 
       const emailCount = (
-         await db
-            .collection('/users')
+         await collection.users
             .where('email', '==', req.body.email.trim())
             .limit(1)
             .get()

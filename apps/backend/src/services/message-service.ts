@@ -1,26 +1,30 @@
 import type { User } from '@packages/types/data';
 import type { Request, Response } from 'express';
 import { firestore } from 'firebase-admin';
-import { db } from 'src/utils/firebase';
+import { collection } from 'src/utils/firebase';
 import { responseData } from 'src/utils/request';
 
 export const getMessageList = async (req: Request, res: Response) => {
    try {
-      const chatRef = db
-         .collection('/messages')
+      const messageRef = collection.messages
          .orderBy('date_created', 'asc')
-         .where('chat_id', '==', db.doc(`/chats/${req.query.chat_id}`));
+         .where(
+            'chat_id',
+            '==',
+            collection.chats.doc(req.query.chat_id as string),
+         );
 
       const result = await Promise.all(
-         (await chatRef.get()).docs.map(async (doc) => {
+         (await messageRef.get()).docs.map(async (doc) => {
             const data = doc.data();
             const sender = (await data.sender.get()).data() as User;
 
             const item = {
                id: doc.id,
                sender: {
-                  email: sender.email,
-                  name: sender.name,
+                  id: sender?.id,
+                  email: sender?.email,
+                  name: sender?.name,
                },
                content: data.content,
             };
@@ -53,12 +57,11 @@ export const addMessage = async (message: {
    content: string;
 }) => {
    try {
-      const messageRef = db.collection('/messages');
-      const chatRef = db.doc(`/chats/${message.chat_id}`);
-      const senderRef = db.doc(`/users/${message.sender_id}`);
+      const chatRef = collection.chats.doc(message.chat_id);
+      const senderRef = collection.users.doc(message.sender_id);
       const senderData = (await senderRef.get()).data();
 
-      const response = await messageRef.add({
+      const response = await collection.messages.add({
          chat_id: chatRef,
          content: message.content,
          sender: senderRef,
@@ -66,7 +69,7 @@ export const addMessage = async (message: {
       });
 
       await chatRef.update({
-         last_message: messageRef.doc(response.id),
+         last_message: collection.messages.doc(response.id),
          updated_at: firestore.FieldValue.serverTimestamp(),
       });
 

@@ -29,7 +29,8 @@
          "style": {
             "noDefaultExport": "off",
             "useNamingConvention": "off",
-            "useExplicitLengthCheck": "off"
+            "useExplicitLengthCheck": "off",
+            "noNonNullAssertion": "off"
          },
          "correctness": {
             "useImportExtensions": "off",
