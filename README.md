@@ -26,11 +26,11 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 To develop all apps and packages, follow these steps:
 
-- Unzip /apps/backend/src/configs/service-account.zip to use firestore
+- Download service-account.json through [url (only for hongnguyen.skipli.engineering@gmail.com and engineering@skiplinow.com)](https://drive.google.com/drive/folders/1_fkpq4s-t_IMplkIeV61hTxtBwUUaF25?usp=drive_link) and place it in this [folder](apps/backend/src/configs)
 
 - Then run following command
 ```
-yarn dev
+yarn install && yarn dev
 ```
 
 ## Fun fact
@@ -43,7 +43,7 @@ yarn dev
 
 | Page         | Screenshot |
 |--------------|------------|
-| Welcome      | ![](https://github.com/user-attachments/assets/39dfc357-a229-45f6-a586-0da0d0579f8d) |
+| Welcome      | ![](https://github.com/user-attachments/assets/7bb7c5ff-444c-4960-b35a-e30878a825cf) |
 | Sign In      | ![](https://github.com/user-attachments/assets/5e060d72-dc22-421e-b050-eff254d97af1) |
 | Verify OTP   | ![](https://github.com/user-attachments/assets/c25cc653-f42b-4990-ad76-7c7437196bb3) |
 | Employee     | ![](https://github.com/user-attachments/assets/5ef8de02-cc86-4586-bc02-22634cfaacf7) |
