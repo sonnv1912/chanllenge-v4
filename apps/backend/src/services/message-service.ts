@@ -27,6 +27,7 @@ export const getMessageList = async (req: Request, res: Response) => {
                   name: sender?.name,
                },
                content: data.content,
+               created_at: data.created_at.toDate(),
             };
 
             return item;

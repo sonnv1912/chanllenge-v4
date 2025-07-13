@@ -4,4 +4,5 @@ export type Message = {
    id: string;
    content: string;
    sender: User;
+   created_at: string;
 };

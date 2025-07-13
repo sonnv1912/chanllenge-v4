@@ -13,6 +13,7 @@ import type { Response } from '@packages/types';
 import toast from 'react-hot-toast';
 import { useModal } from 'react-motion-modal';
 import { useMutate } from '../../hooks/use-mutate';
+import { differenceInHours } from 'date-fns';
 
 export const MessagePage = () => {
    const [selected, setSelected] = useState<Chat>();
@@ -189,6 +190,10 @@ export const MessagePage = () => {
                   <div className='flex-1 flex flex-col justify-end gap-5'>
                      {messageQuery.data?.data?.map((message) => {
                         const isMe = message.sender.id === user?.id;
+                        const canEdit = differenceInHours(
+                           new Date(message.created_at),
+                           new Date(),
+                        );
 
                         return (
                            <div
@@ -215,7 +220,7 @@ export const MessagePage = () => {
                                  {message.content}
                               </p>
 
-                              {isMe && (
+                              {isMe && canEdit < 2 && (
                                  <Button
                                     schema={'white'}
                                     size={'custom'}
