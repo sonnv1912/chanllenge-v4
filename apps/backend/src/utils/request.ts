@@ -1,12 +1,12 @@
 import type { Response } from '@packages/types';
 
-export const responseData = ({
+export const responseData = <T = any>({
    data,
    success,
    message,
    meta,
    status,
-}: Response<any>) => {
+}: Response<T>) => {
    return {
       data,
       success,

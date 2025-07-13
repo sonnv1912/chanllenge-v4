@@ -4,6 +4,10 @@ export const endpoint = {
    logout: '/auth/logout',
 
    users: '/users',
+
    messages: '/messages',
+
    chats: '/chats',
+
+   tasks: '/tasks',
 };

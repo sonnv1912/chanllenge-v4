@@ -6,13 +6,14 @@ import { useModal } from 'react-motion-modal';
 import { useMutate } from '../../hooks/use-mutate';
 import toast from 'react-hot-toast';
 import { queryClient } from '../../configs/query-client';
+import { Card } from '../../components/ui/card';
 
 export const EmployeePage = () => {
    const openModal = useModal((state) => state.openModal);
    const mutate = useMutate(endpoint.users);
 
    return (
-      <div className='bg-white m-5 p-5 rounded-xl shadow-md'>
+      <Card className='m-5'>
          <Listing
             endpoint={endpoint.users}
             itemKey='id'
@@ -99,6 +100,6 @@ export const EmployeePage = () => {
                },
             ]}
          />
-      </div>
+      </Card>
    );
 };

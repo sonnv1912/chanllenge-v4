@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router';
 import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Input } from '../../components/form/input';
 import { useVerifyOtp } from '../../services/auth/auth-hook';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

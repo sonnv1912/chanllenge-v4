@@ -68,6 +68,16 @@ export const getChatList = async (req: Request, res: Response) => {
 
 export const createChat = async (req: Request, res: Response) => {
    try {
+      if (req.auth?.user?.id === req.body.user_id) {
+         return res.status(400).json(
+            responseData({
+               status: 400,
+               success: false,
+               message: "You can't chat with your self",
+            }),
+         );
+      }
+
       const chatRef = db.collection('/chats');
       const authUserRef = db.doc(`/users/${req.auth?.user?.id}`);
       const userRef = db.doc(`/users/${req.body.user_id}`);

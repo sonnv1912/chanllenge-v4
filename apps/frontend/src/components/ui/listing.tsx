@@ -1,20 +1,26 @@
 import { Plus, Search } from 'lucide-react';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import { useGetList } from '../../hooks/use-get-list';
 import { Button } from './button';
+import { format } from 'date-fns';
+import { Card } from './card';
+import clsx from 'clsx';
 
 type Column = {
    label: string;
    code: string;
+   type?: 'date';
    render?: (value: any, index: number) => ReactElement;
 };
 
-type Props = {
+export type ListingProps = {
    title: string;
    itemKey: string;
    endpoint: string;
    queryParams?: Record<string, string>;
    columns?: Column[];
+   right?: ReactNode;
+   selected?: any[];
    actions?: {
       edit: boolean;
       delete: boolean;
@@ -27,7 +33,7 @@ type Props = {
       onCreate: () => void;
    };
 
-   onRowClick?: (value: any) => void;
+   onRowClick?: (value: any, index: number) => void;
 };
 
 export const Listing = ({
@@ -35,19 +41,37 @@ export const Listing = ({
    endpoint,
    queryParams,
    columns,
+   right,
    createNew,
+   selected = [],
    actions,
    itemKey,
    onRowClick,
-}: Props) => {
+}: ListingProps) => {
    const query = useGetList<any>({ endpoint, queryParams });
 
-   return (
-      <div>
-         <p className='text-2xl font-semibold mb-5'>{title}</p>
+   const renderItem = (column: Column, item: any, index: number) => {
+      const value = item[column.code];
 
+      if (column.render) {
+         return column.render(item, index);
+      }
+
+      if (column.type === 'date') {
+         return format(value, 'dd/MM/yyyy HH:mm');
+      }
+
+      return value;
+   };
+
+   return (
+      <Card title={title} right={right}>
          <div className='flex items-center justify-between mb-4'>
-            <div />
+            <div>
+               <p className='font-semibold'>
+                  {query.data?.meta?.total} object found
+               </p>
+            </div>
 
             <div className='flex items-center gap-2'>
                {createNew && (
@@ -89,12 +113,19 @@ export const Listing = ({
                {query.data?.data?.map((item, index) => (
                   <tr
                      key={item[itemKey]}
-                     className='hover:bg-blue-100 cursor-pointer hover:text-blue-500 transition-all'
-                     onClick={() => onRowClick?.(item)}
+                     className={clsx(
+                        'hover:bg-blue-100 cursor-pointer hover:text-blue-500 transition-all',
+                        {
+                           'bg-blue-100 text-blue-500': selected?.find(
+                              (t) => t[itemKey] === item[itemKey],
+                           ),
+                        },
+                     )}
+                     onClick={() => onRowClick?.(item, index)}
                   >
                      {columns?.map((t) => (
                         <td key={t.code} className='h-14 px-2'>
-                           {t.render?.(item, index) || item[t.code]}
+                           {renderItem(t, item, index)}
                         </td>
                      ))}
 
@@ -125,6 +156,6 @@ export const Listing = ({
                ))}
             </tbody>
          </table>
-      </div>
+      </Card>
    );
 };

@@ -7,6 +7,7 @@ import { getUserList, updateUser } from 'src/services/user-service';
 import { authenticateToken } from './auth';
 import { createChat, getChatList } from 'src/services/chat-service';
 import { getMessageList } from 'src/services/message-service';
+import { getTaskList, updateTask } from 'src/services/task-service';
 
 const app = express();
 const server = createServer(app);
@@ -30,5 +31,8 @@ app.get(endpoint.chats, authenticateToken, getChatList);
 app.post(endpoint.chats, authenticateToken, createChat);
 
 app.get(endpoint.messages, authenticateToken, getMessageList);
+
+app.get(endpoint.tasks, authenticateToken, getTaskList);
+app.post(endpoint.tasks, authenticateToken, updateTask);
 
 export { app, server };

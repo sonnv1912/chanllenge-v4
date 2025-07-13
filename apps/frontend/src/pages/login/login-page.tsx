@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+import { Input } from '../../components/form/input';
 import { useLogin } from '../../services/auth/auth-hook';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';

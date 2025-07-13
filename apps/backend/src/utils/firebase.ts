@@ -1,5 +1,5 @@
-import type { Request } from 'express';
 import admin, { type ServiceAccount } from 'firebase-admin';
+import type { CollectionReference, Query } from 'firebase-admin/firestore';
 import ntpClient from 'ntp-client';
 import serviceAccount from '../configs/service-account.json';
 import { responseData } from './request';
@@ -34,28 +34,31 @@ ntpClient.getNetworkTime('time.google.com', 123, (err, date) => {
 
 const db = admin.firestore();
 
-export const getList = async (collection: string, req: Request) => {
+export const getList = async <T = any>(
+   collection: string,
+   query?: (ref: CollectionReference) => Query,
+) => {
    const collectionRef = db.collection(collection);
    const collectionCount = (await collectionRef.count().get()).data();
-
-   const rawSnapshot = collectionRef
-      .limit(10)
-      .where('email', '!=', req.auth?.user?.email);
-
+   const rawSnapshot = query
+      ? query(collectionRef).limit(10)
+      : collectionRef.limit(10);
    const snapshot = await rawSnapshot.get();
 
-   const result = snapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-   }));
+   const result: T[] = snapshot.docs.map(
+      (doc) =>
+         ({
+            ...doc.data(),
+            id: doc.id,
+         }) as T,
+   );
 
-   return responseData({
+   return responseData<T[]>({
       data: result,
       status: 200,
       success: true,
       meta: {
          total: collectionCount.count,
-         // next_page
       },
    });
 };

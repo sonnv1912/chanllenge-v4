@@ -6,5 +6,5 @@ export type User = {
    address: string;
    role: string;
    status: string;
-   otp: string;
+   otp?: string;
 };

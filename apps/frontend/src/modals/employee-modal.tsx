@@ -6,7 +6,7 @@ import type { ModalParams } from 'react-motion-modal';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Grid } from '../components/ui/grid';
-import { Input } from '../components/ui/input';
+import { Input } from '../components/form/input';
 import { useMutate } from '../hooks/use-mutate';
 import { userSchema } from '../services/user/user-schema';
 import { queryClient } from '../configs/query-client';
@@ -20,6 +20,7 @@ export const EmployeeModal = ({
    const form = useForm({
       resolver: zodResolver(userSchema),
       defaultValues: data || {
+         id: '',
          address: '',
          email: '',
          name: '',
@@ -50,7 +51,7 @@ export const EmployeeModal = ({
             right={
                <>
                   <Button schema={'white'} onClick={closeModal}>
-                     Cancel(esc)
+                     Cancel
                   </Button>
 
                   <Button schema={'success'} onClick={onSubmit}>
@@ -69,7 +70,7 @@ export const EmployeeModal = ({
                      <Input
                         label='Name'
                         value={field.value}
-                        errorMessage={fieldState.error?.message}
+                        errMsg={fieldState.error?.message}
                         onChange={field.onChange}
                      />
                   )}
@@ -81,7 +82,7 @@ export const EmployeeModal = ({
                      <Input
                         label='Address'
                         value={field.value}
-                        errorMessage={fieldState.error?.message}
+                        errMsg={fieldState.error?.message}
                         onChange={field.onChange}
                      />
                   )}
@@ -93,7 +94,7 @@ export const EmployeeModal = ({
                      <Input
                         label='Phone number'
                         value={field.value}
-                        errorMessage={fieldState.error?.message}
+                        errMsg={fieldState.error?.message}
                         onChange={field.onChange}
                      />
                   )}
@@ -105,7 +106,7 @@ export const EmployeeModal = ({
                      <Input
                         label='Email'
                         value={field.value}
-                        errorMessage={fieldState.error?.message}
+                        errMsg={fieldState.error?.message}
                         onChange={field.onChange}
                      />
                   )}
@@ -118,7 +119,7 @@ export const EmployeeModal = ({
                         label='Role'
                         value={field.value}
                         placeholder='admin - staff'
-                        errorMessage={fieldState.error?.message}
+                        errMsg={fieldState.error?.message}
                         onChange={field.onChange}
                      />
                   )}

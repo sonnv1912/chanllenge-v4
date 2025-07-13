@@ -1,0 +1,121 @@
+.react-datepicker__aria-live {
+  display: none;
+}
+
+.react-datepicker-wrapper {
+  height: 40px;
+}
+
+.react-datepicker__input-container {
+  height: 100%;
+}
+
+.react-datepicker__input-container input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding: 0 12px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-sm);
+  user-select: none !important;
+}
+
+.react-datepicker__input-container input:focus {
+  border: 1px solid var(--color-blue-500);
+}
+
+.react-datepicker {
+  padding: 20px 16px 10px 16px;
+  display: flex;
+  gap: 20px;
+}
+
+.react-datepicker-popper {
+  background-color: white;
+  border: 1px solid var(--color-blue-500);
+  border-radius: var(--radius-xl);
+  z-index: 10;
+}
+
+.react-datepicker__current-month {
+  text-align: center;
+}
+
+.react-datepicker__day-names {
+  color: var(--color-slate-500);
+}
+
+.react-datepicker__week,
+.react-datepicker__day-names {
+  display: flex;
+  gap: 8;
+}
+
+.react-datepicker__month-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.react-datepicker__year-wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.react-datepicker__month {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 8px;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 9999px;
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.react-datepicker__month-text,
+.react-datepicker__year-text {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: var(--text-sm);
+  outline: none;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__year-text:hover {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-500);
+  cursor: pointer;
+}
+
+.react-datepicker__day--today,
+.react-datepicker__month-text--today,
+.react-datepicker__year-text--today {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-500);
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__month-text--selected,
+.react-datepicker__year-text--selected {
+  background-color: var(--color-blue-500) !important;
+  color: var(--color-white) !important;
+}
+
+.react-datepicker__day--outside-month {
+  opacity: 0.5;
+}
+
+.react-datepicker__time-list {
+  height: 150px !important;
+  overflow: auto;
+}

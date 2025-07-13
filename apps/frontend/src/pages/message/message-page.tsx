@@ -5,7 +5,7 @@ import { Card } from '../../components/ui/card';
 import { Plus, Send, User as UserIcon } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { useEffect, useRef, useState } from 'react';
-import { Input } from '../../components/ui/input';
+import { Input } from '../../components/form/input';
 import { useLocalStorage } from '../../hooks/use-localstorage';
 import clsx from 'clsx';
 import { socket } from '../../utils/socket';
@@ -82,8 +82,29 @@ export const MessagePage = () => {
                   schema={'success'}
                   rounded={true}
                   onClick={() => {
-                     openModal('SelectUserModal', {
-                        onConfirm: async (user) => {
+                     openModal('SelectObjectModal', {
+                        endpoint: endpoint.users,
+                        itemKey: 'id',
+                        title: 'Select user to chat with',
+                        multiple: false,
+                        body: {
+                           className: 'size-full',
+                        },
+                        columns: [
+                           {
+                              code: 'name',
+                              label: 'Name',
+                           },
+                           {
+                              code: 'email',
+                              label: 'Email',
+                           },
+                           {
+                              code: 'role',
+                              label: 'Role',
+                           },
+                        ],
+                        onConfirm: async (user: User) => {
                            await toast.promise(
                               async () =>
                                  await createChatMutate.mutateAsync({
@@ -144,7 +165,6 @@ export const MessagePage = () => {
                ref={chatBoxRef}
                className='flex-1 overflow-auto pb-0'
                title={selected?.room_name}
-               // subTitle={selected?.sender.email}
                style={{
                   height,
                }}

@@ -1,4 +1,7 @@
-import type { User } from '@packages/types/data';
+import type { Task, User } from '@packages/types/data';
+import type { SelectObjectModalProps } from './src/modals/select-object-modal';
+
+type;
 
 declare module 'react-motion-modal' {
    interface ModalStackParams {
@@ -9,8 +12,9 @@ declare module 'react-motion-modal' {
          message: string;
          onConfirm: () => void;
       };
-      SelectUserModal: {
-         onConfirm: (user: User) => void;
+      SelectObjectModal: SelectObjectModalProps;
+      TaskModal: {
+         data?: Task;
       };
    }
 }

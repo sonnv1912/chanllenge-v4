@@ -1,4 +1,5 @@
 import './index.css';
+import './assets/style/react-datepicker.css';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -9,7 +10,8 @@ import { Toaster } from 'react-hot-toast';
 import { ModalProvider } from 'react-motion-modal';
 import { EmployeeModal } from './modals/employee-modal';
 import { ConfirmModal } from './modals/confirm-modal.tsx';
-import { SelectUserModal } from './modals/select-user-modal.tsx';
+import { TaskModal } from './modals/task-modal.tsx';
+import { SelectObjectModal } from './modals/select-object-modal.tsx';
 
 const root = document.getElementById('root');
 
@@ -25,7 +27,8 @@ if (root) {
                modals={{
                   EmployeeModal,
                   ConfirmModal,
-                  SelectUserModal,
+                  TaskModal,
+                  SelectObjectModal,
                }}
                initialParams={{
                   closeOnClickOutside: true,
