@@ -17,7 +17,7 @@ const button = cva(
             ],
             danger: ['bg-red-500 text-white border-red-500 hover:bg-red-600'],
             'success-highlight': [
-               'bg-green-100 text-green-500 border-green-100',
+               'bg-green-100 text-green-500 border-green-500 hover:bg-green-500 hover:text-white',
             ],
             success: [
                'bg-green-500 text-white border-green-500 hover:bg-green-600',

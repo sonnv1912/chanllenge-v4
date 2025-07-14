@@ -207,7 +207,11 @@ export const MessagePage = () => {
                               })}
                            >
                               <Button
-                                 schema={'primary-highlight'}
+                                 schema={
+                                    isMe
+                                       ? 'primary-highlight'
+                                       : 'success-highlight'
+                                 }
                                  rounded={true}
                               >
                                  <UserIcon />
@@ -227,7 +231,15 @@ export const MessagePage = () => {
                                  </p>
 
                                  {message.updated_at && (
-                                    <p className='text-right text-xs mt-0.5 text-gray-500'>
+                                    <p
+                                       className={clsx(
+                                          'text-xs mt-0.5 text-gray-500',
+                                          {
+                                             'text-left': !isMe,
+                                             'text-right': isMe,
+                                          },
+                                       )}
+                                    >
                                        Updated
                                     </p>
                                  )}
