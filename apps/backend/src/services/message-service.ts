@@ -28,6 +28,7 @@ export const getMessageList = async (req: Request, res: Response) => {
                },
                content: data.content,
                created_at: data.created_at.toDate(),
+               updated_at: data.update_at?.toDate(),
             };
 
             return item;
@@ -96,11 +97,11 @@ export const addMessage = async (message: {
 };
 
 export const updateMessage = async (message: {
-   chat_id: string;
+   id: string;
    content: string;
 }) => {
    try {
-      await collection.messages.doc(message.chat_id).update({
+      await collection.messages.doc(message.id).update({
          content: message.content,
          update_at: firestore.FieldValue.serverTimestamp(),
       });

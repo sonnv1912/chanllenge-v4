@@ -1,7 +1,7 @@
 import { Server } from 'socket.io';
 import { server } from './app';
 import { socketEvent } from '@packages/configs';
-import { addMessage } from 'src/services/message-service';
+import { addMessage, updateMessage } from 'src/services/message-service';
 
 const io = new Server(server, {
    transports: ['websocket', 'polling'],
@@ -15,6 +15,14 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
    socket.on(socketEvent.onMessage, async (message) => {
+      if (message.id) {
+         const result = await updateMessage(message);
+
+         io.emit(socketEvent.onMessage, result);
+
+         return;
+      }
+
       const result = await addMessage(message);
 
       io.emit(socketEvent.onMessage, result);

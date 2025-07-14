@@ -1,19 +1,19 @@
 import { endpoint, socketEvent } from '@packages/configs';
-import { useGetList } from '../../hooks/use-get-list';
-import type { Chat, Message, User } from '@packages/types/data';
-import { Card } from '../../components/ui/card';
-import { Pen, Plus, Send, User as UserIcon } from 'lucide-react';
-import { Button } from '../../components/ui/button';
-import { useEffect, useRef, useState } from 'react';
-import { Input } from '../../components/form/input';
-import { useLocalStorage } from '../../hooks/use-localstorage';
-import clsx from 'clsx';
-import { socket } from '../../utils/socket';
 import type { Response } from '@packages/types';
+import type { Chat, Message, User } from '@packages/types/data';
+import clsx from 'clsx';
+import { differenceInHours } from 'date-fns';
+import { Pen, Plus, Send, User as UserIcon, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useModal } from 'react-motion-modal';
+import { Input } from '../../components/form/input';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { useGetList } from '../../hooks/use-get-list';
+import { useLocalStorage } from '../../hooks/use-localstorage';
 import { useMutate } from '../../hooks/use-mutate';
-import { differenceInHours } from 'date-fns';
+import { socket } from '../../utils/socket';
 
 export const MessagePage = () => {
    const [selected, setSelected] = useState<Chat>();
@@ -22,6 +22,7 @@ export const MessagePage = () => {
    const chatBoxRef = useRef<HTMLDivElement>(null);
    const openModal = useModal((state) => state.openModal);
    const createChatMutate = useMutate(endpoint.chats);
+   const [editingMessage, setEditingMessage] = useState<Message>();
 
    const chatQuery = useGetList<Chat>({
       endpoint: endpoint.chats,
@@ -40,12 +41,14 @@ export const MessagePage = () => {
    const onSendMessage = () => {
       if (content) {
          socket.emit(socketEvent.onMessage, {
+            id: editingMessage?.id,
             chat_id: selected?.id,
             sender_id: user?.id,
             content,
          });
 
          setContent('');
+         setEditingMessage(undefined);
 
          return;
       }
@@ -73,7 +76,7 @@ export const MessagePage = () => {
       const event = socket.on(
          socketEvent.onMessage,
          (response: Response<Message>) => {
-            if (response.success && response.data) {
+            if (response.success) {
                messageQuery.refetch();
                chatQuery.refetch();
 
@@ -190,9 +193,10 @@ export const MessagePage = () => {
                   <div className='flex-1 flex flex-col justify-end gap-5'>
                      {messageQuery.data?.data?.map((message) => {
                         const isMe = message.sender.id === user?.id;
+                        const editing = editingMessage?.id === message.id;
                         const canEdit = differenceInHours(
-                           new Date(message.created_at),
                            new Date(),
+                           new Date(message.created_at),
                         );
 
                         return (
@@ -209,25 +213,40 @@ export const MessagePage = () => {
                                  <UserIcon />
                               </Button>
 
-                              <p
-                                 className={clsx(
-                                    'p-2 bg-slate-200 rounded-lg',
-                                    {
-                                       '-order-1': isMe,
-                                    },
-                                 )}
+                              <div
+                                 className={clsx({
+                                    '-order-1': isMe,
+                                 })}
                               >
-                                 {message.content}
-                              </p>
+                                 <p
+                                    className={clsx(
+                                       'p-2 bg-slate-200 rounded-lg',
+                                    )}
+                                 >
+                                    {message.content}
+                                 </p>
+
+                                 {message.updated_at && (
+                                    <p className='text-right text-xs mt-0.5 text-gray-500'>
+                                       Updated
+                                    </p>
+                                 )}
+                              </div>
 
                               {isMe && canEdit < 2 && (
                                  <Button
-                                    schema={'white'}
+                                    schema={
+                                       editing ? 'primary-highlight' : 'white'
+                                    }
                                     size={'custom'}
                                     rounded={true}
                                     className={clsx(
                                        'justify-center p-2 mt-1.5 block -order-2',
                                     )}
+                                    onClick={() => {
+                                       setEditingMessage(message);
+                                       setContent(message.content);
+                                    }}
                                  >
                                     <Pen size={12} />
                                  </Button>
@@ -237,13 +256,31 @@ export const MessagePage = () => {
                      })}
                   </div>
 
-                  <div className='flex items-center gap-2 sticky bottom-0 left-0 right-0 bg-white'>
-                     <Input
-                        placeholder='Your message here'
-                        value={content}
-                        onChange={setContent}
-                        onEnter={onSendMessage}
-                     />
+                  <div className='flex items-end sticky bottom-0 left-0 right-0 bg-white gap-2'>
+                     <div className='flex-1'>
+                        {editingMessage && (
+                           <div className='text-sm bg-slate-100 p-3 rounded-t-2xl flex items-center justify-between'>
+                              <p>{editingMessage.content}</p>
+
+                              <Button
+                                 className='justify-center p-1'
+                                 schema={'primary-highlight'}
+                                 size={'custom'}
+                                 rounded={true}
+                                 onClick={() => setEditingMessage(undefined)}
+                              >
+                                 <X size={16} />
+                              </Button>
+                           </div>
+                        )}
+
+                        <Input
+                           placeholder='Your message here'
+                           value={content}
+                           onChange={setContent}
+                           onEnter={onSendMessage}
+                        />
+                     </div>
 
                      <Button onClick={onSendMessage}>
                         <Send />
