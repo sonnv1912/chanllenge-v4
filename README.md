@@ -50,5 +50,5 @@ yarn install && yarn dev
 | Verify OTP   | ![](https://github.com/user-attachments/assets/c25cc653-f42b-4990-ad76-7c7437196bb3) |
 | Employee     | ![](https://github.com/user-attachments/assets/5ef8de02-cc86-4586-bc02-22634cfaacf7) |
 | Task         | ![](https://github.com/user-attachments/assets/749d9e0b-3054-427c-98e4-886936185546) |
-| Message      | ![](https://github.com/user-attachments/assets/ed1727e2-f727-493e-a4e6-043b02d27e6d) |
+| Message      | ![](https://github.com/user-attachments/assets/f9b391a9-4747-413f-9b77-8c643192c03d) |
 | Profile      | ![](https://github.com/user-attachments/assets/7d452137-3cd4-492f-a688-9aa39ca1a3fd) |
