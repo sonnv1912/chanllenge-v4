@@ -21,6 +21,36 @@ This repo includes the following packages/apps:
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
+## Folder structure
+
+````
+.
+├── apps/
+│   ├── backend/
+│   │   ├── src/
+│   │   │   ├── configs (contains `backend` configs)
+│   │   │   ├── data (contains functions that get collections data to reuse somewhere)
+│   │   │   ├── services (contains collection service)
+│   │   │   └── utils (contains useful variable, functions that use somewhere)
+│   │   └── index.ts (start point)
+│   └── frontend/
+│       ├── src/
+│       │   ├── assets (contains static, media files)
+│       │   ├── components (contains reuseable components)
+│       │   ├── configs (contains `frontend` configs)
+│       │   ├── hooks (contains reuseable hooks)
+│       │   ├── layouts (contains app layouts)
+│       │   ├── modals (contains modal components)
+│       │   ├── navigation (contains app navigation)
+│       │   ├── pages (contains app pages)
+│       │   ├── services (contains service of each collection)
+│       │   └── utils (contains reuse function to use somewhere)
+│       └── main.tsx (start point)
+├── packages/
+│   ├── configs (shared configs of `backend` and `frontend`)
+│   └── types (shared types of `backend` and `frontend`)
+└── README.md (about my project)
+````
 
 ## Develop
 
